@@ -186,5 +186,5 @@ export const createCardEdit = () => {
         </div>
       </section>
     </section>
-  </form>`
-}
+  </form>`;
+};

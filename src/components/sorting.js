@@ -30,5 +30,5 @@ export const createSorting = () => {
 
     <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
   </form>
-  `
+  `;
 };
