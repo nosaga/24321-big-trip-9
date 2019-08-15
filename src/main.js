@@ -10,6 +10,7 @@ const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
 };
 
+const TRIPSNUMBER = 3;
 const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
@@ -20,4 +21,4 @@ render(tripControls, createSwitchMenu(), `afterbegin`);
 render(tripControls, createFilters(), `beforeend`);
 render(tripEvents, createSorting(), `afterbegin`);
 render(tripEventsList, createCardEdit(), `afterbegin`);
-new Array(3).fill(``).forEach(() => render(tripEventsList, createCards(), `beforeend`));
+const trips = new Array(TRIPSNUMBER).fill(``).forEach(() => render(tripEventsList, createCards(), `beforeend`));

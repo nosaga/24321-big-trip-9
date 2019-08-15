@@ -1,5 +1,4 @@
-export const createCards = () => {
-  return `
+export const createCards = () => `
   <li class="trip-events__item">
     <div class="event">
       <div class="event__type">
@@ -33,5 +32,6 @@ export const createCards = () => {
         <span class="visually-hidden">Open event</span>
       </button>
     </div>
-  </li>`;
-};
+  </li>
+`;
+

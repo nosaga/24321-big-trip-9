@@ -1,5 +1,4 @@
-export const createCardEdit = () => {
-  return `
+export const createCardEdit = () => `
   <form class="event  event--edit" action="#" method="post">
     <header class="event__header">
       <div class="event__type-wrapper">
@@ -186,5 +185,5 @@ export const createCardEdit = () => {
         </div>
       </section>
     </section>
-  </form>`;
-};
+  </form>
+`;
