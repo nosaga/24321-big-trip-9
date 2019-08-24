@@ -1,7 +1,8 @@
-export const createCardRoute = () => `
+export const createCardRoute = ({cityStart, cityEnd, startMonth, startDate, endDate}) =>
+  `
   <div class="trip-info__main">
-    <h1 class="trip-info__title">Amsterdam</h1>
-    <p class="trip-info__dates">Mar 18&nbsp;—&nbsp;21</p>
+    <h1 class="trip-info__title">${cityStart} &mdash; ... &mdash;  ${cityEnd}</h1>
+    <p class="trip-info__dates">${startMonth} ${startDate.getUTCDate()}&nbsp;—&nbsp;${endDate.getUTCDate()}</p>
   </div>
-`;
+  `;
 
