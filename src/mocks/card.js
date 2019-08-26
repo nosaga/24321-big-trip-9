@@ -1,5 +1,5 @@
-import {getDuration} from "../helpers/helper-functions"
-import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity} from "../mocks/constants";
+import {getDuration} from '../helpers/helper-functions'
+import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, photosArray} from '../mocks/constants';
 
 export const getCard = {
 
@@ -120,27 +120,32 @@ export const getCard = {
   options: [
     {
       type: 'Add luggage',
+      value: `luggage`,
       price: Math.floor(Math.random() * 250),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
       type: 'Switch to comfort class',
+      value: `class`,
       price: Math.floor(Math.random() * 250),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
       type: 'Add meal',
+      value: `meal`,
       price: Math.floor(Math.random() * 5),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
       type: 'Choose seats',
+      value: `seats`,
       price: Math.floor(Math.random() * 30),
       isChecked: Boolean(Math.round(Math.random()))
     }
   ],
 
-  photos: 'http://picsum.photos/300/150?r=${Math.random()}',
+
+  photos: photosArray.map(() => 'http://picsum.photos/300/150?r='),
 
   description: [
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,

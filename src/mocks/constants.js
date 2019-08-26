@@ -8,6 +8,18 @@ const startDate = new Date(2020, 5, 1, 8,30, 0, 0);
 const endDate = new Date(2020, 5, 8, 0,30, 0, 0);
 const startTimeHours = new Date(2020, 5, 1, 8,30, 0, 0).getHours();
 const startTimeMinutes = new Date(2020, 5, 1, 8,30, 0, 0).getMinutes();
+const photosArray = new Array(5).fill(``);
 
-
-export {partialPath, cities, sightseeings, activity, startMonth, startDate, endDate, startTimeHours, startTimeMinutes, monthNames};
+export {
+  partialPath,
+  cities,
+  sightseeings,
+  activity,
+  startMonth,
+  startDate,
+  endDate,
+  startTimeHours,
+  startTimeMinutes,
+  monthNames,
+  photosArray
+};

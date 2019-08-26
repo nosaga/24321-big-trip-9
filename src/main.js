@@ -7,8 +7,8 @@ import {createCardEdit} from './components/card-edit.js';
 import {getCard} from './mocks/card';
 import {filters} from './mocks/filters';
 import {getCardRoute} from './mocks/card-route';
-import {controls} from "./mocks/controls";
-import {sorting} from "./mocks/sorting";
+import {controls} from './mocks/controls';
+import {sorting} from './mocks/sorting';
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);

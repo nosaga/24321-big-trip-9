@@ -16,7 +16,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
               
                 <div class="event__type-item">
                   <input id="event-type-${trip.type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${trip.type}">
-                  <label class="event__type-label  event__type-label--${trip.type}" for="event-type-taxi-1">${trip.type}</label>
+                  <label class="event__type-label  event__type-label--${trip.type.toLowerCase()}" for="event-type-${trip.type}-1">${trip.type}</label>
                 </div>
           </fieldset>
 
@@ -26,12 +26,12 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
             `
               <div class="event__type-item">
                 <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
-                <label class="event__type-label  event__type-label--${act}" for="event-type-check-in-1">${act}</label>
+                <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-check-in-1">${act}</label>
               </div>
             `).join(``)}
           </fieldset>
         </div>
-      </div>`)[Math.floor(Math.random() * tripRoute.length)]}
+      </div>`)[0]}
 
       <div class="event__field-group  event__field-group--destination">
         ${tripRoute.map(point => `
@@ -95,11 +95,10 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         
           <div class="event__available-offers">
-          ${options.map(it => 
-            `
+          ${options.map(it => `
             <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked="${it.isChecked}">
-              <label class="event__offer-label" for="event-offer-luggage-1">
+              <input class="event__offer-checkbox  visually-hidden" id="event-offer-${it.value}-1" type="checkbox" name="event-offer-${it.value}" checked="${it.isChecked === true ? 'checked' : ''}">
+              <label class="event__offer-label" for="event-offer-${it.value}-1">
                 <span class="event__offer-title">${it.type}</span>
                 +
                 €&nbsp;<span class="event__offer-price">${it.price}</span>
@@ -114,11 +113,9 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
 
         <div class="event__photos-container">
           <div class="event__photos-tape">
-            <img class="event__photo" src="${photos}" alt="Event photo">
-            <img class="event__photo" src="${photos}" alt="Event photo">
-            <img class="event__photo" src="${photos}" alt="Event photo">
-            <img class="event__photo" src="${photos}" alt="Event photo">
-            <img class="event__photo" src="${photos}" alt="Event photo">
+           ${photos.map(photo => `
+            <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
+            `).join(``)}
           </div>
         </div>
       </section>

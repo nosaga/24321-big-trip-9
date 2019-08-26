@@ -1,5 +1,4 @@
-export const createCards = ({tripRoute, options}) =>
-    `
+export const createCards = ({tripRoute, options}) =>`
     ${tripRoute.map(trip =>
     `
     <li class="trip-events__item">
