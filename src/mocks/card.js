@@ -1,4 +1,4 @@
-import {getDuration} from '../helpers/helper-functions'
+import {getDuration} from '../helpers/helper-functions';
 import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, photosArray} from '../mocks/constants';
 
 export const getCard = {
@@ -6,7 +6,7 @@ export const getCard = {
   tripRoute: [
     {
       type: `Taxi`,
-      icon: partialPath + 'taxi.png',
+      icon: partialPath + `taxi.png`,
       point: `Airport`,
       price: Math.floor(Math.random() * 50),
       startTime: [startTimeHours, startTimeMinutes],
@@ -18,7 +18,7 @@ export const getCard = {
     },
     {
       type: `Flight`,
-      icon: partialPath + 'flight.png',
+      icon: partialPath + `flight.png`,
       point: cities[Math.floor(Math.random() * cities.length)],
       price: Math.floor(Math.random() * 500),
       startTime: [startTimeHours + 1, startTimeMinutes + 30],
@@ -30,7 +30,7 @@ export const getCard = {
     },
     {
       type: `Drive`,
-      icon: partialPath + 'bus.png',
+      icon: partialPath + `bus.png`,
       point: cities[Math.floor(Math.random() * cities.length)],
       price: Math.floor(Math.random() * 50),
       startTime: [startTimeHours + 3, startTimeMinutes + 30],
@@ -42,7 +42,7 @@ export const getCard = {
     },
     {
       type: `Check in`,
-      icon: partialPath + 'check-in.png',
+      icon: partialPath + `check-in.png`,
       point: `hotel`,
       price: Math.floor(Math.random() * 300),
       startTime: [startTimeHours + 3, startTimeMinutes + 30],
@@ -54,7 +54,7 @@ export const getCard = {
     },
     {
       type: `Sightseeing`,
-      icon: partialPath + 'sightseeing.png',
+      icon: partialPath + `sightseeing.png`,
       point: sightseeings[Math.floor(Math.random() * sightseeings.length)],
       price: Math.floor(Math.random() * 10),
       startTime: [startTimeHours + 4, startTimeMinutes + 30],
@@ -66,7 +66,7 @@ export const getCard = {
     },
     {
       type: `Restaurant`,
-      icon: partialPath + 'restaurant.png',
+      icon: partialPath + `restaurant.png`,
       point: `hotel`,
       price: Math.floor(Math.random() * 60),
       startTime: [startTimeHours + 5, startTimeMinutes + 30],
@@ -78,7 +78,7 @@ export const getCard = {
     },
     {
       type: `Ship`,
-      icon: partialPath + 'ship.png',
+      icon: partialPath + `ship.png`,
       point: cities[Math.floor(Math.random() * cities.length)],
       price: Math.floor(Math.random() * 40),
       startTime: [startTimeHours + 6, startTimeMinutes + 30],
@@ -90,7 +90,7 @@ export const getCard = {
     },
     {
       type: `Bus`,
-      icon: partialPath + 'bus.png',
+      icon: partialPath + `bus.png`,
       point: sightseeings[Math.floor(Math.random() * sightseeings.length)],
       price: Math.floor(Math.random() * 50),
       startTime: [startTimeHours + 3, startTimeMinutes + 30],
@@ -102,7 +102,7 @@ export const getCard = {
     },
     {
       type: `Train`,
-      icon: partialPath + 'train.png',
+      icon: partialPath + `train.png`,
       point: cities[Math.floor(Math.random() * cities.length)],
       price: Math.floor(Math.random() * 30),
       startTime: [startTimeHours + 1, startTimeMinutes + 30],
@@ -119,25 +119,25 @@ export const getCard = {
 
   options: [
     {
-      type: 'Add luggage',
+      type: `Add luggage`,
       value: `luggage`,
       price: Math.floor(Math.random() * 250),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
-      type: 'Switch to comfort class',
+      type: `Switch to comfort class`,
       value: `class`,
       price: Math.floor(Math.random() * 250),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
-      type: 'Add meal',
+      type: `Add meal`,
       value: `meal`,
       price: Math.floor(Math.random() * 5),
       isChecked: Boolean(Math.round(Math.random()))
     },
     {
-      type: 'Choose seats',
+      type: `Choose seats`,
       value: `seats`,
       price: Math.floor(Math.random() * 30),
       isChecked: Boolean(Math.round(Math.random()))
