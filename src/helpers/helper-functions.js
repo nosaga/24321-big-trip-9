@@ -11,9 +11,9 @@ export function getRandomOptions(options = []) {
 
   if (activeOptionsNumber) {
     for (let i = 0; i < activeOptionsNumber; i++) {
-      activeOptions.push(options[Math.floor(Math.random() * options.length)])
+      activeOptions.push(options[Math.floor(Math.random() * options.length)]);
     }
   }
 
   return activeOptions;
-};
+}

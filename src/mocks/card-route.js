@@ -7,5 +7,4 @@ export const getCardRoute = () => ({
   startMonth: getMonth(),
   startDate: startDate,
   endDate: endDate
-
-})
+});
