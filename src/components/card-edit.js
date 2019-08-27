@@ -1,7 +1,7 @@
 export const createCardEdit = ({tripRoute, activity, description, options, photos}) => `
   <form class="event  event--edit" action="#" method="post">
     <header class="event__header">
-      ${tripRoute.map(trip =>`
+      ${tripRoute.map((trip) =>`
       <div class="event__type-wrapper">
         <label class="event__type  event__type-btn" for="event-type-toggle-1">
           <span class="visually-hidden">Choose event type</span>
@@ -20,7 +20,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
 
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Activity</legend>
-            ${activity.map(act =>`
+            ${activity.map((act) =>`
               <div class="event__type-item">
                 <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
                 <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-check-in-1">${act}</label>
@@ -31,14 +31,14 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
       </div>`)[0]}
 
       <div class="event__field-group  event__field-group--destination">
-        ${tripRoute.map(point => `
+        ${tripRoute.map((point) => `
           <label class="event__label  event__type-output" for="event-destination-1">
             ${point.type} to
           </label>
           <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${point.point}" list="destination-list-1">
          `)[[Math.floor(Math.random() * tripRoute.length)]]}
         <datalist id="destination-list-1">
-          ${tripRoute.map(points => `
+          ${tripRoute.map((points) => `
           <option value="${points.point}"></option>
           `).join(``)}
         </datalist>
@@ -46,7 +46,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
       </div>
 
       <div class="event__field-group  event__field-group--time">
-        ${tripRoute.map(date => `
+        ${tripRoute.map((date) => `
         <label class="visually-hidden" for="event-start-time-1">
           From
         </label>
@@ -64,7 +64,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
           <span class="visually-hidden">Price</span>
           €
         </label>
-        ${tripRoute.map(price => 
+        ${tripRoute.map((price) => 
         `
         <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${price.price}">
         `)[Math.floor(Math.random() * tripRoute.length)]}
@@ -92,9 +92,9 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
         <h3 class="event__section-title  event__section-title--offers">Offers</h3>
         
           <div class="event__available-offers">
-          ${options.map(it => `
+          ${options.map((it) => `
             <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-${it.value}-1" type="checkbox" name="event-offer-${it.value}" checked="${it.isChecked === true ? 'checked' : ''}">
+              <input class="event__offer-checkbox  visually-hidden" id="event-offer-${it.value}-1" type="checkbox" name="event-offer-${it.value}" checked="${it.isChecked === true ? `checked` : ``}">
               <label class="event__offer-label" for="event-offer-${it.value}-1">
                 <span class="event__offer-title">${it.type}</span>
                 +
@@ -110,7 +110,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
 
         <div class="event__photos-container">
           <div class="event__photos-tape">
-           ${photos.map(photo => `
+           ${photos.map((photo) => `
             <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
             `).join(``)}
           </div>
