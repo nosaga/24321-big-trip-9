@@ -145,7 +145,7 @@ export const getCard = {
   ],
 
 
-  photos: photosArray.map(() => 'http://picsum.photos/300/150?r='),
+  photos: photosArray.map(() => `http://picsum.photos/300/150?r=`),
 
   description: [
     `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras aliquet varius magna, non porta ligula feugiat eget.`,

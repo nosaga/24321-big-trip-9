@@ -1,1 +1,1 @@
-export const sorting = [ `Event`, `Time`, `Price`];
+export const sorting = [`Event`, `Time`, `Price`];

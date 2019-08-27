@@ -16,4 +16,4 @@ export function getRandomOptions(options = []) {
   }
 
   return activeOptions;
-}
+};
