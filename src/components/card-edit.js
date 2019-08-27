@@ -1,8 +1,7 @@
 export const createCardEdit = ({tripRoute, activity, description, options, photos}) => `
   <form class="event  event--edit" action="#" method="post">
     <header class="event__header">
-      ${tripRoute.map(trip =>
-      `
+      ${tripRoute.map(trip =>`
       <div class="event__type-wrapper">
         <label class="event__type  event__type-btn" for="event-type-toggle-1">
           <span class="visually-hidden">Choose event type</span>
@@ -13,17 +12,15 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
         <div class="event__type-list">
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Transfer</legend>
-              
-                <div class="event__type-item">
-                  <input id="event-type-${trip.type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${trip.type}">
-                  <label class="event__type-label  event__type-label--${trip.type.toLowerCase()}" for="event-type-${trip.type}-1">${trip.type}</label>
-                </div>
+              <div class="event__type-item">
+                <input id="event-type-${trip.type}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${trip.type}">
+                <label class="event__type-label  event__type-label--${trip.type.toLowerCase()}" for="event-type-${trip.type}-1">${trip.type}</label>
+              </div>
           </fieldset>
 
           <fieldset class="event__type-group">
             <legend class="visually-hidden">Activity</legend>
-            ${activity.map(act =>
-            `
+            ${activity.map(act =>`
               <div class="event__type-item">
                 <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
                 <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-check-in-1">${act}</label>
