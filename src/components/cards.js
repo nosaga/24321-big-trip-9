@@ -30,5 +30,5 @@ export const createCards = ({tripRoute, options}) => `${tripRoute.map((trip) => 
     </button>
   </div>
   </li>
-  `).join(``)};
+  `).splice(0, 3).join(``)}
 `;
