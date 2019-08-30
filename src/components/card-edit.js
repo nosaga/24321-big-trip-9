@@ -26,7 +26,7 @@ export const createCardEdit = ({tripRoute, activity, description, options, photo
             ${activity.map((act) => `
               <div class="event__type-item">
                 <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
-                <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-check-in-1">${act}</label>
+                <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-${act}-1">${act}</label>
               </div>
             `).join(``)}
           </fieldset>
