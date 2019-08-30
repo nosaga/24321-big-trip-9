@@ -1,3 +1,4 @@
+import {render, Position} from './utils';
 import {createCardRoute} from './components/card-route.js';
 import {createControls} from './components/controls.js';
 import {createFilters} from './components/filters.js';
@@ -10,8 +11,20 @@ import {getCardRoute} from './mocks/card-route';
 import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 
-const render = (container, template, place) => {
-  container.insertAdjacentHTML(place, template);
+import {Card} from './components/cards'
+import {CardEdit} from './components/card-edit'
+
+// const render = (container, template, place) => {
+//   container.insertAdjacentHTML(place, template);
+// };
+
+
+const renderCards = (cardMock) => {
+  const card = new Card(cardMock);
+  const cardEdit = new CardEdit(cardMock);
+
+  render(tripEventsList, card.getElement(), Position.BEFOREEND);
+  render(tripEventsList, cardEdit.getElement(), Position.AFTERBEGIN);
 };
 
 const TRIPSNUMBER = 3;
@@ -20,9 +33,11 @@ const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
 
-render(tripInfo, createCardRoute(getCardRoute()), `afterbegin`);
-render(tripControls, createControls(controls), `afterbegin`);
-render(tripControls, createFilters(filters), `beforeend`);
-render(tripEvents, createSorting(sorting), `afterbegin`);
-render(tripEventsList, createCardEdit(getCard), `afterbegin`);
-render(tripEventsList, createCards(getCard), `beforeend`);
+//render(tripInfo, createCardRoute(getCardRoute()), Position.AFTERBEGIN);
+//render(tripControls, createControls(controls), Position.AFTERBEGIN);
+//render(tripControls, createFilters(filters), Position.BEFOREEND);
+//render(tripEvents, createSorting(sorting), Position.AFTERBEGIN);
+//render(tripEventsList, createCardEdit(getCard), `afterbegin`);
+//render(tripEventsList, createCards(getCard), `beforeend`);
+
+renderCards(getCard);

@@ -115,7 +115,7 @@ export const getCard = {
   ],
 
   activity: activity,
-  trasfer: transfer,
+  transfer: transfer,
 
 
   options: [
