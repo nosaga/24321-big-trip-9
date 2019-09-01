@@ -19,18 +19,42 @@ const renderCards = (cardMock) => {
   const card = new Card(cardMock);
   const cardEdit = new CardEdit(cardMock);
 
-  render(tripEventsList, card.getElement(), Position.BEFOREEND);
+  const onEscKeyDown = (evt) => {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
+      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
 
   card.getElement()
     .querySelectorAll(`.event__rollup-btn`).forEach((btn) =>
-      btn.addEventListener(`click`, () => {
-        tripEventsList.replaceChild(cardEdit.getElement(), card.getElement())
+    btn.addEventListener(`click`, () => {
+      tripEventsList.replaceChild(cardEdit.getElement(), card.getElement());
+      document.addEventListener(`keydown`, onEscKeyDown);
     }));
+
+  cardEdit.getElement()
+    .querySelector(`.event__input--destination`)
+    .addEventListener(`focus`, () => {
+      document.removeEventListener(`keydown`, onEscKeyDown)
+    });
+
+  cardEdit.getElement()
+    .querySelector(`.event__input--destination`)
+    .addEventListener(`blur`, () => {
+      document.addEventListener(`keydown`, onEscKeyDown)
+    })
+
   cardEdit.getElement()
     .querySelectorAll(`form`).forEach((form) =>
-      form.addEventListener(`click`, () => {
-        tripEventsList.replaceChild(card.getElement(), cardEdit.getElement())
-    }))
+    form.addEventListener(`submit`, () => {
+      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }));
+
+  render(tripEventsList, card.getElement(), Position.BEFOREEND);
+
+
 };
 
 const renderRoute = (route) => {
