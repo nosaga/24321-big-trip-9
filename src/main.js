@@ -28,7 +28,7 @@ const renderCards = (cardMock) => {
     }));
   cardEdit.getElement()
     .querySelectorAll(`form`).forEach((form) =>
-      form.addEventListener(`click`, () => {
+      form.addEventListener(`submit`, () => {
         tripEventsList.replaceChild(card.getElement(), cardEdit.getElement())
     }))
 };
