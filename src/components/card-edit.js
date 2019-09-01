@@ -1,4 +1,4 @@
-import {transfer} from "../mocks/constants";
+import {transfer} from "../constants";
 import {createElement} from "../utils";
 
 
@@ -9,7 +9,7 @@ export class CardEdit {
     this._activity = activity;
     this._description = description;
     this._options = options;
-    this._photos = photos
+    this._photos = photos;
   }
 
   getElement() {
@@ -18,6 +18,10 @@ export class CardEdit {
     }
 
     return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 
   getTemplate () {

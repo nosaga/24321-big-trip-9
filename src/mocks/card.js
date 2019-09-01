@@ -1,7 +1,7 @@
-import {getDuration} from '../helpers/helper-functions';
-import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, transfer, photosArray} from '../mocks/constants';
+import {getDuration} from '../utils';
+import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, transfer, photosArray} from '../constants';
 
-export const getCard = {
+export const card = {
   tripRoute: [
     {
       type: `Taxi`,

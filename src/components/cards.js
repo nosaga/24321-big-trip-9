@@ -14,8 +14,14 @@ export class Card {
     return this._element;
   }
 
+  removeElement() {
+    this._element = null;
+  }
+
   getTemplate() {
-    return ` ${this._tripRoute.map((trip) => `<li class="trip-events__item">
+    return ` 
+    ${this._tripRoute.map((trip) => `
+    <li class="trip-events__item">
     <div class="event">
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="${trip.icon}" alt="Event type icon">
@@ -34,7 +40,7 @@ export class Card {
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-      ${this._options.map((option) =>` 
+      ${this._options.map((option) => ` 
         <li class="event__offer">
           <span class="event__offer-title">${option.type}</span>
           +

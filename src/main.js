@@ -1,22 +1,18 @@
+import {tripInfo, tripControls, tripEvents, tripEventsList} from './constants'
 import {render, Position} from './utils';
-import {createCardRoute} from './components/card-route.js';
-import {createControls} from './components/controls.js';
-import {createFilters} from './components/filters.js';
-import {createSorting} from './components/sorting.js';
-import {createCards} from './components/cards.js';
-import {createCardEdit} from './components/card-edit.js';
-import {getCard} from './mocks/card';
+
+import {card} from './mocks/card';
 import {filters} from './mocks/filters';
 import {getCardRoute} from './mocks/card-route';
 import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 
-import {Card} from './components/cards'
-import {CardEdit} from './components/card-edit'
-
-// const render = (container, template, place) => {
-//   container.insertAdjacentHTML(place, template);
-// };
+import {Card} from './components/cards';
+import {CardEdit} from './components/card-edit';
+import {CreateCardRoute} from './components/card-route';
+import {CreateControls} from './components/controls';
+import {CreateFilters} from './components/filters';
+import {CreateSorting} from './components/sorting';
 
 
 const renderCards = (cardMock) => {
@@ -24,20 +20,46 @@ const renderCards = (cardMock) => {
   const cardEdit = new CardEdit(cardMock);
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
-  render(tripEventsList, cardEdit.getElement(), Position.AFTERBEGIN);
+
+  card.getElement()
+    .querySelectorAll(`.event__rollup-btn`).forEach((btn) =>
+      btn.addEventListener(`click`, () => {
+        tripEventsList.replaceChild(cardEdit.getElement(), card.getElement())
+    }));
+  cardEdit.getElement()
+    .querySelectorAll(`form`).forEach((form) =>
+      form.addEventListener(`click`, () => {
+        tripEventsList.replaceChild(card.getElement(), cardEdit.getElement())
+    }))
 };
 
-const TRIPSNUMBER = 3;
-const tripInfo = document.querySelector(`.trip-main__trip-info`);
-const tripControls = document.querySelector(`.trip-main__trip-controls`);
-const tripEvents = document.querySelector(`.trip-events`);
-const tripEventsList = document.querySelector(`.trip-events__list`);
+const renderRoute = (route) => {
+  const cardRoute = new CreateCardRoute(route);
 
-//render(tripInfo, createCardRoute(getCardRoute()), Position.AFTERBEGIN);
-//render(tripControls, createControls(controls), Position.AFTERBEGIN);
-//render(tripControls, createFilters(filters), Position.BEFOREEND);
-//render(tripEvents, createSorting(sorting), Position.AFTERBEGIN);
-//render(tripEventsList, createCardEdit(getCard), `afterbegin`);
-//render(tripEventsList, createCards(getCard), `beforeend`);
+  render(tripInfo, cardRoute.getElement(), Position.AFTERBEGIN);
+};
 
-renderCards(getCard);
+const renderControls = (controls) => {
+  const controlRoute = new CreateControls(controls);
+
+  render(tripControls, controlRoute.getElement(), Position.AFTERBEGIN);
+};
+
+const renderFilters = (filters) => {
+  const filtersRoute = new CreateFilters(filters);
+
+  render(tripControls, filtersRoute.getElement(), Position.BEFOREEND);
+};
+
+const renderSorting = (sorting) => {
+  const sortingRoute = new CreateSorting(sorting);
+
+  render(tripEvents, sortingRoute.getElement(), Position.AFTERBEGIN);
+};
+
+
+renderCards(card);
+renderRoute(getCardRoute());
+renderControls(controls);
+renderFilters(filters);
+renderSorting(sorting);
