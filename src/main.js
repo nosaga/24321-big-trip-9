@@ -15,54 +15,7 @@ import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
 import {TripCost} from "./components/trip-cost";
-
-
-const renderCards = (cardMock) => {
-  const card = new Card(cardMock);
-  const cardEdit = new CardEdit(cardMock);
-
-  const onEscKeyDown = (evt) => {
-    if (evt.key === `Escape` || evt.key === `Esc`) {
-      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    }
-  };
-
-  card.getElement()
-    .querySelector(`.event__rollup-btn`)
-    .addEventListener(`click`, () => {
-      tripEventsList.replaceChild(cardEdit.getElement(), card.getElement());
-      document.addEventListener(`keydown`, onEscKeyDown);
-    });
-
-  cardEdit.getElement()
-    .querySelector(`.event__input--destination`)
-    .addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown)
-    });
-
-  cardEdit.getElement()
-    .querySelector(`.event__input--destination`)
-    .addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown)
-    });
-
-  cardEdit.getElement()
-    .querySelector(`.event__rollup-btn`)
-    .addEventListener(`click`, () => {
-      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
-
-  // cardEdit.getElement()
-  //   .querySelector(`form`)
-  //   .addEventListener(`submit`, () => {
-  //     tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-  //     document.removeEventListener(`keydown`, onEscKeyDown);
-  //   });
-
-  render(tripEventsList, card.getElement(), Position.BEFOREEND);
-};
+import {CardsBoardController} from "./controllers/cards-board";
 
 
 const renderRoute = (route) => {
@@ -92,11 +45,13 @@ const renderCosts = (costs) => {
 
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
-cardMocks.forEach((cardMock) => renderCards(cardMock));
 renderRoute(getCardRoute());
 renderControls(controls);
 renderFilters(filters);
 renderSorting(sorting);
+
+const cardsBoardController = new CardsBoardController(tripEventsList, cardMocks);
+cardsBoardController.init();
 
 const price = document.querySelectorAll(`.event__price-value`);
 renderCosts(tripCost(price));

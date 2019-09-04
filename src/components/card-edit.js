@@ -1,27 +1,16 @@
-import {createElement} from "../utils";
+import {AbstractComponent} from "./abstract-component";
 
-export class CardEdit {
+export class CardEdit extends AbstractComponent {
   constructor({tripRoute, activity, description, options, photos, transfer}) {
+    super();
     this._tripRoute = tripRoute;
     this._transfer = transfer;
     this._activity = activity;
     this._description = description;
     this._options = options;
     this._photos = photos;
-    this._element = null;
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
 
   getTemplate() {
     return `<form class="event  event--edit" action="#" method="post">

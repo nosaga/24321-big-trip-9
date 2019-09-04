@@ -1,26 +1,14 @@
-import {createElement} from "../utils";
+import {AbstractComponent} from "./abstract-component";
 
-export class CreateCardRoute {
+export class CreateCardRoute extends AbstractComponent {
   constructor({cityStart, cityTransfer, cityEnd, startMonth, startDate, endDate}) {
+    super();
     this._cityStart = cityStart;
     this._cityTransfer = cityTransfer;
     this._cityEnd = cityEnd;
     this._startMonth = startMonth;
     this._startDate = startDate;
     this._endDate = endDate;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {
