@@ -3,6 +3,9 @@ const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
 
+
+const CARD_COUNT = 3;
+
 const partialPath = `img/icons/`;
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
 const sightseeings = [`Natural History Museum`, `Theater`, `Park`];
@@ -21,6 +24,7 @@ export {
   tripControls,
   tripEvents,
   tripEventsList,
+  CARD_COUNT,
   partialPath,
   cities,
   sightseeings,

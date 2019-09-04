@@ -5,6 +5,16 @@ const getDuration = (start, end) => end - start;
 
 const getMonth = () => monthNames[startMonth];
 
+const getPrice = (costs) => {
+  let totalCost = 0;
+  console.log(costs);
+  costs.forEach((cost) => {
+    totalCost += +cost.innerHTML;
+  });
+
+  return totalCost;
+};
+
 function setActiveStatuses(options = []) {
   const maxActiveOptionsNumber = 2;
   const activeOptionsNumber = Math.floor(Math.random() * (maxActiveOptionsNumber + 1));
@@ -24,7 +34,7 @@ const Position = {
 const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
-  return newElement;
+  return newElement.firstChild;
 };
 
 // Рендер и анрендер для компонент
@@ -48,6 +58,7 @@ const unrender = (element) => {
 export {
   getDuration,
   getMonth,
+  getPrice,
   setActiveStatuses,
   Position,
   createElement,
