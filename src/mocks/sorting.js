@@ -4,7 +4,7 @@ export const sorting = [
     isChecked: Boolean(Math.round(Math.random()))
   },
   {
-    sorting:  `Time`,
+    sorting: `Time`,
     isChecked: Boolean(Math.round(Math.random()))
   },
   {

@@ -24,6 +24,6 @@ export class CreateControls {
           <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${control}</a>
         `).join(``)}
       </nav>
-    `
+    `;
   }
 }

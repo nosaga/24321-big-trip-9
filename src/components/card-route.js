@@ -2,7 +2,7 @@ import {createElement} from "../utils";
 
 export class CreateCardRoute {
   constructor({cityStart, cityTransfer, cityEnd, startMonth, startDate, endDate}) {
-    this._citySart = cityStart;
+    this._cityStart = cityStart;
     this._cityTransfer = cityTransfer;
     this._cityEnd = cityEnd;
     this._startMonth = startMonth;

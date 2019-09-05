@@ -53,7 +53,7 @@ export class Card {
       </button>
     </div>
     </li>
-    `).splice(0, 3).join(``)}
-  `;}
+    `).splice(0, 3).join(``)}`;
+  }
 }
 

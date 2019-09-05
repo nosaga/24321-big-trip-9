@@ -1,11 +1,10 @@
-import {transfer} from "../constants";
 import {createElement} from "../utils";
 
 
 export class CardEdit {
   constructor({tripRoute, activity, description, options, photos, transfer}) {
     this._tripRoute = tripRoute;
-    this._transfer  = transfer;
+    this._transfer = transfer;
     this._activity = activity;
     this._description = description;
     this._options = options;
@@ -24,7 +23,7 @@ export class CardEdit {
     this._element = null;
   }
 
-  getTemplate () {
+  getTemplate() {
     return `
   <form class="event  event--edit" action="#" method="post">
     <header class="event__header">
