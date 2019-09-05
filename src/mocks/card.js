@@ -1,7 +1,7 @@
-import {getDuration} from '../helpers/helper-functions';
-import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, transfer, photosArray} from '../mocks/constants';
+import {getDuration} from '../utils';
+import {partialPath, cities, sightseeings, startTimeHours, startTimeMinutes, startDate, endDate, activity, transfer, photosArray} from '../constants';
 
-export const getCard = {
+export const card = {
   tripRoute: [
     {
       type: `Taxi`,
@@ -12,8 +12,8 @@ export const getCard = {
       endTime: [startTimeHours + 1, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours, startTimeHours + 1),
       durationMinutes: getDuration(startTimeMinutes, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Flight`,
@@ -24,8 +24,8 @@ export const getCard = {
       endTime: [startTimeHours + 3, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Drive`,
@@ -36,8 +36,8 @@ export const getCard = {
       endTime: [startTimeHours + 3, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Check in`,
@@ -48,8 +48,8 @@ export const getCard = {
       endTime: [startTimeHours + 48, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 3, startTimeHours + 48),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Sightseeing`,
@@ -60,8 +60,8 @@ export const getCard = {
       endTime: [startTimeHours + 6, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Restaurant`,
@@ -72,8 +72,8 @@ export const getCard = {
       endTime: [startTimeHours + 7, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Ship`,
@@ -84,8 +84,8 @@ export const getCard = {
       endTime: [startTimeHours + 8, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Bus`,
@@ -96,8 +96,8 @@ export const getCard = {
       endTime: [startTimeHours + 3, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 3, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     },
     {
       type: `Train`,
@@ -108,14 +108,14 @@ export const getCard = {
       endTime: [startTimeHours + 3, startTimeMinutes + 30],
       durationHours: getDuration(startTimeHours + 1, startTimeHours + 3),
       durationMinutes: getDuration(startTimeMinutes + 30, startTimeMinutes + 30),
-      startDate: startDate,
-      endDate: endDate
+      startDate,
+      endDate
     }
 
   ],
 
-  activity: activity,
-  trasfer: transfer,
+  activity,
+  transfer,
 
 
   options: [
