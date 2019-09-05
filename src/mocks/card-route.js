@@ -1,5 +1,5 @@
 import {getMonth} from '../utils';
-import {startDate, endDate} from "../constants";
+import {startDate, endDate} from '../constants';
 
 export const getCardRoute = () => ({
   cityStart: [`Geneva`, `Chamonix`, `Amsterdam`, `Brussels`, `Stockholm`][Math.floor(Math.random() * 5)],

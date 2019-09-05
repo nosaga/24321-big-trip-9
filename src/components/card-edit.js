@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
 
 export class CardEdit {
   constructor({tripRoute, activity, description, options, photos, transfer}) {

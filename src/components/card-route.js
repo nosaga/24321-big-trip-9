@@ -1,4 +1,4 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
 
 export class CreateCardRoute {
   constructor({cityStart, cityTransfer, cityEnd, startMonth, startDate, endDate}) {
