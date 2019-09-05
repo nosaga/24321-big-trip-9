@@ -20,9 +20,9 @@ export class CreateControls {
 
   getTemplate() {
     return `<nav class="trip-controls__trip-tabs  trip-tabs">
-              ${this._controls.map((control) => `
-                <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${control}</a>
-              `).join(``)}
-            </nav>`;
+      ${this._controls.map((control) => `
+        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${control}</a>
+      `).join(``)}
+    </nav>`;
   }
 }

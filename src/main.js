@@ -54,12 +54,11 @@ const renderCards = (cardMock) => {
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
-  // cardEdit.getElement()
-  //   .querySelector(`form`)
-  //   .addEventListener(`submit`, () => {
-  //     tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-  //     document.removeEventListener(`keydown`, onEscKeyDown);
-  //   });
+  tripEventsList
+    .addEventListener(`submit`, () => {
+      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };

@@ -99,7 +99,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
 
 
-
 class CardEdit {
   constructor({tripRoute, activity, description, options, photos, transfer}) {
     this._tripRoute = tripRoute;
@@ -108,6 +107,7 @@ class CardEdit {
     this._description = description;
     this._options = options;
     this._photos = photos;
+    this._element = null;
   }
 
   getElement() {
@@ -123,117 +123,114 @@ class CardEdit {
   }
 
   getTemplate() {
-    return `
-  <form class="event  event--edit" action="#" method="post">
-    <header class="event__header">
-      ${this._tripRoute.map((trip) => `
-      <div class="event__type-wrapper">
-        <label class="event__type  event__type-btn" for="event-type-toggle-1">
-          <span class="visually-hidden">Choose event type</span>
-          <img class="event__type-icon" width="17" height="17" src="${trip.icon}" alt="Event type icon">
-        </label>
-        <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
-  
-        <div class="event__type-list">
-          <fieldset class="event__type-group">
-            <legend class="visually-hidden">Transfer</legend>
-              ${this._transfer.map((option) => `
-              <div class="event__type-item">
-                <input id="event-type-${option}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${option}">
-                <label class="event__type-label  event__type-label--${option.toLowerCase()}" for="event-type-${option}-1">${option}</label>
-              </div>`).join(``)}
-          </fieldset>
-  
-          <fieldset class="event__type-group">
-            <legend class="visually-hidden">Activity</legend>
-            ${this._activity.map((act) => `
-              <div class="event__type-item">
-                <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
-                <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-${act}-1">${act}</label>
-              </div>
-            `).join(``)}
-          </fieldset>
-        </div>
-      </div>`)[0]}
-      <div class="event__field-group  event__field-group--destination">
-        ${this._tripRoute.map((point) => `
-          <label class="event__label  event__type-output" for="event-destination-1">
-            ${point.type} to
-          </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${point.point}" list="destination-list-1">
-         `)[[Math.floor(Math.random() * this._tripRoute.length)]]}
-        <datalist id="destination-list-1">
-          ${this._tripRoute.map((points) => `
-            <option value="${points.point}"></option>
-          `).join(``)}
-        </datalist>
-      </div>
-      <div class="event__field-group  event__field-group--time">
-        ${this._tripRoute.map((date) => `
-          <label class="visually-hidden" for="event-start-time-1">
-            From
-          </label>
-          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${date.startDate.getDate()}/${date.startDate.getMonth()}/${date.startDate.getFullYear()} ${date.startTime[0]}:${date.startTime[1]}">
-          —
-          <label class="visually-hidden" for="event-end-time-1">
-            To
-          </label>
-          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${date.endDate.getDate()}/${date.endDate.getMonth()}/${date.endDate.getFullYear()} ${date.endTime[0]}:${date.endTime[0]}">
-          `)[Math.floor(Math.random() * this._tripRoute.length)]}
-      </div>
-      <div class="event__field-group  event__field-group--price">
-        <label class="event__label" for="event-price-1">
-          <span class="visually-hidden">Price</span>
-          €
-        </label>
-        ${this._tripRoute.map((price) => `
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${price.price}">
-          `)[Math.floor(Math.random() * this._tripRoute.length)]}
-      </div>
-      <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-      <button class="event__reset-btn" type="reset">Delete</button>
-      <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" checked="">
-      <label class="event__favorite-btn" for="event-favorite-1">
-        <span class="visually-hidden">Add to favorite</span>
-        <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
-          <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"></path>
-        </svg>
-      </label>
-      <button class="event__rollup-btn" type="button">
-        <span class="visually-hidden">Open event</span>
-      </button>
-    </header>
-  
-    <section class="event__details">
-      <section class="event__section  event__section--offers">
-        <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-          <div class="event__available-offers">
-          ${this._options.map((it) => `
-            <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-${it.value}-1" type="checkbox" name="event-offer-${it.value}" checked="${it.isChecked ? `checked` : ``}">
-              <label class="event__offer-label" for="event-offer-${it.value}-1">
-                <span class="event__offer-title">${it.type}</span>
-                +
-                €&nbsp;<span class="event__offer-price">${it.price}</span>
+    return `<form class="event  event--edit" action="#" method="post">
+      <header class="event__header">
+        ${this._tripRoute.map((trip) => `
+          <div class="event__type-wrapper">
+            <label class="event__type  event__type-btn" for="event-type-toggle-1">
+              <span class="visually-hidden">Choose event type</span>
+              <img class="event__type-icon" width="17" height="17" src="${trip.icon}" alt="Event type icon">
+            </label>
+            <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
+      
+            <div class="event__type-list">
+              <fieldset class="event__type-group">
+                <legend class="visually-hidden">Transfer</legend>
+                  ${this._transfer.map((option) => `
+                    <div class="event__type-item">
+                      <input id="event-type-${option}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${option}">
+                      <label class="event__type-label  event__type-label--${option.toLowerCase()}" for="event-type-${option}-1">${option}</label>
+                    </div>`).join(``)}
+              </fieldset>
+      
+              <fieldset class="event__type-group">
+                <legend class="visually-hidden">Activity</legend>
+                ${this._activity.map((act) => `
+                  <div class="event__type-item">
+                    <input id="event-type-${act}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${act}">
+                    <label class="event__type-label  event__type-label--${act.toLowerCase()}" for="event-type-check-in-1">${act}</label>
+                  </div>
+                `).join(``)}
+              </fieldset>
+            </div>
+        </div>`)[0]}
+        <div class="event__field-group  event__field-group--destination">
+          ${this._tripRoute.map((point) => `
+              <label class="event__label  event__type-output" for="event-destination-1">
+                ${point.type} to
               </label>
-            </div>`).join(``)}
-          </div>
-      </section>
-  
-      <section class="event__section  event__section--destination">
-        <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-        <p class="event__destination-description">${this._description}</p>
-  
-        <div class="event__photos-container">
-          <div class="event__photos-tape">
-           ${this._photos.map((photo) => `
-            <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
-            `).join(``)} 
-           </div>
+              <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${point.point}" list="destination-list-1">
+             `)[[Math.floor(Math.random() * this._tripRoute.length)]]}
+            <datalist id="destination-list-1">
+              ${this._tripRoute.map((points) => `
+                <option value="${points.point}"></option>
+              `).join(``)}
+            </datalist>
         </div>
+        <div class="event__field-group  event__field-group--time">
+          ${this._tripRoute.map((date) => `
+            <label class="visually-hidden" for="event-start-time-1">
+              From
+            </label>
+            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${date.startDate.getDate()}/${date.startDate.getMonth()}/${date.startDate.getFullYear()} ${date.startTime[0]}:${date.startTime[1]}">
+            —
+            <label class="visually-hidden" for="event-end-time-1">
+              To
+            </label>
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${date.endDate.getDate()}/${date.endDate.getMonth()}/${date.endDate.getFullYear()} ${date.endTime[0]}:${date.endTime[0]}">
+            `)[Math.floor(Math.random() * this._tripRoute.length)]}
+        </div>
+        <div class="event__field-group  event__field-group--price">
+          <label class="event__label" for="event-price-1">
+            <span class="visually-hidden">Price</span>
+            €
+          </label>
+            ${this._tripRoute.map((price) => `
+              <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${price.price}">
+              `)[Math.floor(Math.random() * this._tripRoute.length)]}
+        </div>
+        <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
+        <button class="event__reset-btn" type="reset">Delete</button>
+        <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" checked="">
+        <label class="event__favorite-btn" for="event-favorite-1">
+          <span class="visually-hidden">Add to favorite</span>
+          <svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
+            <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"></path>
+          </svg>
+        </label>
+        <button class="event__rollup-btn" type="button">
+          <span class="visually-hidden">Open event</span>
+        </button>
+      </header>
+      <section class="event__details">
+        <section class="event__section  event__section--offers">
+          <h3 class="event__section-title  event__section-title--offers">Offers</h3>
+            <div class="event__available-offers">
+              ${this._options.map((it) => `
+                <div class="event__offer-selector">
+                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-${it.value}-1" type="checkbox" name="event-offer-${it.value}" ${it.isChecked ? `checked` : ``}>
+                  <label class="event__offer-label" for="event-offer-${it.value}-1">
+                    <span class="event__offer-title">${it.type}</span>
+                    +
+                    €&nbsp;<span class="event__offer-price">${it.price}</span>
+                  </label>
+                </div>`).join(``)}
+            </div>
+        </section>
+        <section class="event__section  event__section--destination">
+          <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+          <p class="event__destination-description">${this._description}</p>
+    
+          <div class="event__photos-container">
+            <div class="event__photos-tape">
+             ${this._photos.map((photo) => `
+                <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
+              `).join(``)} 
+             </div>
+          </div>
+        </section>
       </section>
-    </section>
-  </form>`;
+    </form>`;
   }
 }
 
@@ -261,6 +258,7 @@ class CreateCardRoute {
     this._startMonth = startMonth;
     this._startDate = startDate;
     this._endDate = endDate;
+    this._element = null;
   }
 
   getElement() {
@@ -276,12 +274,10 @@ class CreateCardRoute {
   }
 
   getTemplate() {
-    return `
-    <div class="trip-info__main">
+    return `<div class="trip-info__main">
       <h1 class="trip-info__title">${this._cityStart} &mdash; ${this._cityTransfer !== `` ? `...&mdash;` : ``}   ${this._cityEnd}</h1>
       <p class="trip-info__dates">${this._startMonth} ${this._startDate.getUTCDate()}&nbsp;—&nbsp;${this._endDate.getUTCDate()}</p>
-    </div>
-  `;
+    </div>`;
   }
 }
 
@@ -307,6 +303,7 @@ class Card {
   constructor({tripRoute, options}) {
     this._tripRoute = tripRoute;
     this._options = options;
+    this._element = null;
   }
 
   getElement() {
@@ -322,41 +319,40 @@ class Card {
   }
 
   getTemplate() {
-    return ` 
-    ${this._tripRoute.map((trip) => `
-    <li class="trip-events__item">
-    <div class="event">
-      <div class="event__type">
-        <img class="event__type-icon" width="42" height="42" src="${trip.icon}" alt="Event type icon">
-      </div>
-      <h3 class="event__title">${trip.type} ${trip.point}</h3>
-      <div class="event__schedule">
-        <p class="event__time">
-          <time class="event__start-time" datetime="2019-03-18T10:30">${trip.startTime[0]}:${trip.startTime[1]}</time>
-          —
-          <time class="event__end-time" datetime="2019-03-18T11:00">${trip.endTime[0]}:${(trip.endTime[1])}</time>
-        </p>
-        <p class="event__duration">${trip.durationHours}H ${trip.durationMinutes}M</p>
-      </div>
-      <p class="event__price">
-        €&nbsp;<span class="event__price-value">${trip.price}</span>
-      </p>
-      <h4 class="visually-hidden">Offers:</h4>
-      <ul class="event__selected-offers">
-      ${this._options.map((option) => ` 
-        <li class="event__offer">
-          <span class="event__offer-title">${option.type}</span>
-          +
-          €&nbsp;<span class="event__offer-price">${option.price}</span>
-         </li>
-         `)[Math.floor(Math.random() * this._options.length)]}
-      </ul>
-      <button class="event__rollup-btn" type="button">
-        <span class="visually-hidden">Open event</span>
-      </button>
-    </div>
-    </li>
-    `).splice(0, 3).join(``)}`;
+    return `<li class="trip-events__item">
+      ${this._tripRoute.map((trip) => `
+        <div class="event">
+          <div class="event__type">
+            <img class="event__type-icon" width="42" height="42" src="${trip.icon}" alt="Event type icon">
+          </div>
+          <h3 class="event__title">${trip.type} ${trip.point}</h3>
+          <div class="event__schedule">
+            <p class="event__time">
+              <time class="event__start-time" datetime="2019-03-18T10:30">${trip.startTime[0]}:${trip.startTime[1]}</time>
+              —
+              <time class="event__end-time" datetime="2019-03-18T11:00">${trip.endTime[0]}:${(trip.endTime[1])}</time>
+            </p>
+            <p class="event__duration">${trip.durationHours}H ${trip.durationMinutes}M</p>
+          </div>
+          <p class="event__price">
+            €&nbsp;<span class="event__price-value">${trip.price}</span>
+          </p>
+          <h4 class="visually-hidden">Offers:</h4>
+          <ul class="event__selected-offers">
+          ${this._options.map((option) => ` 
+            <li class="event__offer">
+              <span class="event__offer-title">${option.type}</span>
+              +
+              €&nbsp;<span class="event__offer-price">${option.price}</span>
+             </li>
+             `)[Math.floor(Math.random() * this._options.length)]}
+          </ul>
+          <button class="event__rollup-btn" type="button">
+            <span class="visually-hidden">Open event</span>
+          </button>
+        </div>
+        `)[Math.floor(Math.random() * this._tripRoute.length)]}
+  </li>`;
   }
 }
 
@@ -380,6 +376,7 @@ __webpack_require__.r(__webpack_exports__);
 class CreateControls {
   constructor(controls) {
     this._controls = controls;
+    this._element = null;
   }
 
   getElement() {
@@ -395,13 +392,11 @@ class CreateControls {
   }
 
   getTemplate() {
-    return `
-      <nav class="trip-controls__trip-tabs  trip-tabs">
-        ${this._controls.map((control) => `
-          <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${control}</a>
-        `).join(``)}
-      </nav>
-    `;
+    return `<nav class="trip-controls__trip-tabs  trip-tabs">
+      ${this._controls.map((control) => `
+        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">${control}</a>
+      `).join(``)}
+    </nav>`;
   }
 }
 
@@ -424,6 +419,7 @@ __webpack_require__.r(__webpack_exports__);
 class CreateFilters {
   constructor(filters) {
     this._filters = filters;
+    this._element = null;
   }
 
   getElement() {
@@ -439,15 +435,13 @@ class CreateFilters {
   }
 
   getTemplate() {
-    return `
-      <form class="trip-filters" action="#" method="get">${this._filters.map((filter) => `
-        <div class="trip-filters__filter">
-          <input id="filter-${filter.filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter.filter.toLowerCase()}" ${filter.isChecked ? `checked` : ``}>
-          <label class="trip-filters__filter-label" for="filter-${filter.filter}">${filter.filter}</label>
-        </div>
-        `).join(``)}
-      </form>
-    `;
+    return `<form class="trip-filters" action="#" method="get">${this._filters.map((filter) => `
+      <div class="trip-filters__filter">
+        <input id="filter-${filter.filter}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${filter.filter.toLowerCase()}" ${filter.isChecked ? `checked` : ``}>
+        <label class="trip-filters__filter-label" for="filter-${filter.filter}">${filter.filter}</label>
+      </div>
+      `).join(``)}
+  </form>`;
   }
 }
 
@@ -470,6 +464,7 @@ __webpack_require__.r(__webpack_exports__);
 class CreateSorting {
   constructor(sorting) {
     this._sorting = sorting;
+    this._element = null;
   }
 
   getElement() {
@@ -485,21 +480,60 @@ class CreateSorting {
   }
 
   getTemplate() {
-    return `
-      <form class="trip-events__trip-sort  trip-sort" action="#" method="get">
-        <span class="trip-sort__item  trip-sort__item--day">Day</span>
-        ${this._sorting.map((sort) => `
-          <div class="trip-sort__item  trip-sort__item--${sort.sorting.toLowerCase()}">
-            <input id="sort-${sort.sorting}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sort.sorting}" ${sort.isChecked ? `checked` : ``}>
-            <label class="trip-sort__btn" for="sort-${sort.sorting}">${sort.sorting}
-            <svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
-                <path d="M2.888 4.852V9.694H5.588V4.852L7.91 5.068L4.238 0.00999987L0.548 5.068L2.888 4.852Z"/>
-              </svg>
-            </label>
-          </div>`).join(``)}
-        <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
-    </form>
-    `;
+    return `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+      <span class="trip-sort__item  trip-sort__item--day">Day</span>
+      ${this._sorting.map((sort) => `
+        <div class="trip-sort__item  trip-sort__item--${sort.sorting.toLowerCase()}">
+          <input id="sort-${sort.sorting}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${sort.sorting}" ${sort.isChecked ? `checked` : ``}>
+          <label class="trip-sort__btn" for="sort-${sort.sorting}">${sort.sorting}
+          <svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
+              <path d="M2.888 4.852V9.694H5.588V4.852L7.91 5.068L4.238 0.00999987L0.548 5.068L2.888 4.852Z"/>
+            </svg>
+          </label>
+        </div>`).join(``)}
+      <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
+  </form>`;
+  }
+}
+
+
+/***/ }),
+
+/***/ "./src/components/trip-cost.js":
+/*!*************************************!*\
+  !*** ./src/components/trip-cost.js ***!
+  \*************************************/
+/*! exports provided: TripCost */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TripCost", function() { return TripCost; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+
+
+class TripCost {
+  constructor(cost) {
+    this._cost = cost;
+    this._element = null;
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["createElement"])(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<p class="trip-info__cost">
+      Total: €&nbsp;<span class="trip-info__cost-value">${this._cost}</span>
+    </p>`;
   }
 }
 
@@ -510,7 +544,7 @@ class CreateSorting {
 /*!**************************!*\
   !*** ./src/constants.js ***!
   \**************************/
-/*! exports provided: tripInfo, tripControls, tripEvents, tripEventsList, partialPath, cities, sightseeings, activity, transfer, startMonth, startDate, endDate, startTimeHours, startTimeMinutes, monthNames, photosArray */
+/*! exports provided: tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT, partialPath, cities, sightseeings, activity, transfer, startMonth, startDate, endDate, startTimeHours, startTimeMinutes, monthNames, photosArray */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -519,6 +553,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tripControls", function() { return tripControls; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tripEvents", function() { return tripEvents; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tripEventsList", function() { return tripEventsList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CARD_COUNT", function() { return CARD_COUNT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "partialPath", function() { return partialPath; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cities", function() { return cities; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sightseeings", function() { return sightseeings; });
@@ -535,6 +570,9 @@ const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
+
+
+const CARD_COUNT = 3;
 
 const partialPath = `img/icons/`;
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
@@ -570,12 +608,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mocks_card_route__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mocks/card-route */ "./src/mocks/card-route.js");
 /* harmony import */ var _mocks_controls__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mocks/controls */ "./src/mocks/controls.js");
 /* harmony import */ var _mocks_sorting__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mocks/sorting */ "./src/mocks/sorting.js");
-/* harmony import */ var _components_cards__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/cards */ "./src/components/cards.js");
-/* harmony import */ var _components_card_edit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/card-edit */ "./src/components/card-edit.js");
-/* harmony import */ var _components_card_route__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/card-route */ "./src/components/card-route.js");
-/* harmony import */ var _components_controls__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/controls */ "./src/components/controls.js");
-/* harmony import */ var _components_filters__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/filters */ "./src/components/filters.js");
-/* harmony import */ var _components_sorting__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/sorting */ "./src/components/sorting.js");
+/* harmony import */ var _mocks_trip_cost__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mocks/trip-cost */ "./src/mocks/trip-cost.js");
+/* harmony import */ var _components_cards__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/cards */ "./src/components/cards.js");
+/* harmony import */ var _components_card_edit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/card-edit */ "./src/components/card-edit.js");
+/* harmony import */ var _components_card_route__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/card-route */ "./src/components/card-route.js");
+/* harmony import */ var _components_controls__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/controls */ "./src/components/controls.js");
+/* harmony import */ var _components_filters__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/filters */ "./src/components/filters.js");
+/* harmony import */ var _components_sorting__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/sorting */ "./src/components/sorting.js");
+/* harmony import */ var _components_trip_cost__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/trip-cost */ "./src/components/trip-cost.js");
+
+
 
 
 
@@ -594,53 +636,87 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderCards = (cardMock) => {
-  const card = new _components_cards__WEBPACK_IMPORTED_MODULE_7__["Card"](cardMock);
-  const cardEdit = new _components_card_edit__WEBPACK_IMPORTED_MODULE_8__["CardEdit"](cardMock);
+  const card = new _components_cards__WEBPACK_IMPORTED_MODULE_8__["Card"](cardMock);
+  const cardEdit = new _components_card_edit__WEBPACK_IMPORTED_MODULE_9__["CardEdit"](cardMock);
 
-  Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
+  const onEscKeyDown = (evt) => {
+    if (evt.key === `Escape` || evt.key === `Esc`) {
+      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
 
   card.getElement()
-    .querySelectorAll(`.event__rollup-btn`).forEach((btn) =>
-      btn.addEventListener(`click`, () => {
-        _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(cardEdit.getElement(), card.getElement())
-    }));
+    .querySelector(`.event__rollup-btn`)
+    .addEventListener(`click`, () => {
+      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(cardEdit.getElement(), card.getElement());
+      document.addEventListener(`keydown`, onEscKeyDown);
+    });
+
   cardEdit.getElement()
-    .querySelectorAll(`form`).forEach((form) =>
-      form.addEventListener(`submit`, () => {
-        _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement())
-    }))
+    .querySelector(`.event__input--destination`)
+    .addEventListener(`focus`, () => {
+      document.removeEventListener(`keydown`, onEscKeyDown)
+    });
+
+  cardEdit.getElement()
+    .querySelector(`.event__input--destination`)
+    .addEventListener(`blur`, () => {
+      document.addEventListener(`keydown`, onEscKeyDown)
+    });
+
+  cardEdit.getElement()
+    .querySelector(`.event__rollup-btn`)
+    .addEventListener(`click`, () => {
+      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
+
+  _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"]
+    .addEventListener(`submit`, () => {
+      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    });
+
+  Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
 };
 
-const renderRoute = (route) => {
-  const cardRoute = new _components_card_route__WEBPACK_IMPORTED_MODULE_9__["CreateCardRoute"](route);
 
+const renderRoute = (route) => {
+  const cardRoute = new _components_card_route__WEBPACK_IMPORTED_MODULE_10__["CreateCardRoute"](route);
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripInfo"], cardRoute.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].AFTERBEGIN);
 };
 
 const renderControls = (controls) => {
-  const controlRoute = new _components_controls__WEBPACK_IMPORTED_MODULE_10__["CreateControls"](controls);
-
+  const controlRoute = new _components_controls__WEBPACK_IMPORTED_MODULE_11__["CreateControls"](controls);
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripControls"], controlRoute.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].AFTERBEGIN);
 };
 
 const renderFilters = (filters) => {
-  const filtersRoute = new _components_filters__WEBPACK_IMPORTED_MODULE_11__["CreateFilters"](filters);
-
+  const filtersRoute = new _components_filters__WEBPACK_IMPORTED_MODULE_12__["CreateFilters"](filters);
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripControls"], filtersRoute.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
 };
 
 const renderSorting = (sorting) => {
-  const sortingRoute = new _components_sorting__WEBPACK_IMPORTED_MODULE_12__["CreateSorting"](sorting);
-
+  const sortingRoute = new _components_sorting__WEBPACK_IMPORTED_MODULE_13__["CreateSorting"](sorting);
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEvents"], sortingRoute.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].AFTERBEGIN);
 };
 
+const renderCosts = (costs) => {
+  const costItems = new _components_trip_cost__WEBPACK_IMPORTED_MODULE_14__["TripCost"](costs);
+  Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripInfo"], costItems.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND)
+};
 
-renderCards(_mocks_card__WEBPACK_IMPORTED_MODULE_2__["card"]);
+const cardMocks = new Array(_constants__WEBPACK_IMPORTED_MODULE_0__["CARD_COUNT"]).fill(``).map(_mocks_card__WEBPACK_IMPORTED_MODULE_2__["card"]);
+
+cardMocks.forEach((cardMock) => renderCards(cardMock));
 renderRoute(Object(_mocks_card_route__WEBPACK_IMPORTED_MODULE_4__["getCardRoute"])());
 renderControls(_mocks_controls__WEBPACK_IMPORTED_MODULE_5__["controls"]);
 renderFilters(_mocks_filters__WEBPACK_IMPORTED_MODULE_3__["filters"]);
 renderSorting(_mocks_sorting__WEBPACK_IMPORTED_MODULE_6__["sorting"]);
+
+const price = document.querySelectorAll(`.event__price-value`);
+renderCosts(Object(_mocks_trip_cost__WEBPACK_IMPORTED_MODULE_7__["tripCost"])(price));
 
 
 /***/ }),
@@ -687,7 +763,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const card = {
+const card = () => ({
   tripRoute: [
     {
       type: `Taxi`,
@@ -698,8 +774,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"], _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"], _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Flight`,
@@ -710,8 +785,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Drive`,
@@ -722,8 +796,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Check in`,
@@ -734,8 +807,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 48, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 48),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Sightseeing`,
@@ -746,8 +818,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 6, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Restaurant`,
@@ -758,8 +829,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 7, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Ship`,
@@ -770,8 +840,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 8, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Bus`,
@@ -782,8 +851,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     },
     {
       type: `Train`,
@@ -794,8 +862,7 @@ const card = {
       endTime: [_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30],
       durationHours: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 1, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeHours"] + 3),
       durationMinutes: Object(_utils__WEBPACK_IMPORTED_MODULE_0__["getDuration"])(_constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30, _constants__WEBPACK_IMPORTED_MODULE_1__["startTimeMinutes"] + 30),
-      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"],
-      endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
+      startDate: _constants__WEBPACK_IMPORTED_MODULE_1__["startDate"], endDate: _constants__WEBPACK_IMPORTED_MODULE_1__["endDate"]
     }
 
   ],
@@ -845,7 +912,7 @@ const card = {
     `unc fermentum tortor ac porta dapibus.`,
     `In rutrum ac purus sit amet tempus.`
   ][Math.floor(Math.random() * 3)],
-};
+});
 
 
 /***/ }),
@@ -924,17 +991,40 @@ const sorting = [
 
 /***/ }),
 
+/***/ "./src/mocks/trip-cost.js":
+/*!********************************!*\
+  !*** ./src/mocks/trip-cost.js ***!
+  \********************************/
+/*! exports provided: tripCost */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "tripCost", function() { return tripCost; });
+const tripCost = (price) => {
+  let totalPrice = 0;
+  price.forEach((item) => {
+    totalPrice += +item.innerHTML;
+  });
+
+  return totalPrice;
+};
+
+
+/***/ }),
+
 /***/ "./src/utils.js":
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: getDuration, getMonth, setActiveStatuses, Position, createElement, render, unrender */
+/*! exports provided: getDuration, getMonth, getPrice, setActiveStatuses, Position, createElement, render, unrender */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDuration", function() { return getDuration; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMonth", function() { return getMonth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPrice", function() { return getPrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveStatuses", function() { return setActiveStatuses; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Position", function() { return Position; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
@@ -947,6 +1037,16 @@ __webpack_require__.r(__webpack_exports__);
 const getDuration = (start, end) => end - start;
 
 const getMonth = () => _constants__WEBPACK_IMPORTED_MODULE_0__["monthNames"][_constants__WEBPACK_IMPORTED_MODULE_0__["startMonth"]];
+
+const getPrice = (costs) => {
+  let totalCost = 0;
+  console.log(costs);
+  costs.forEach((cost) => {
+    totalCost += +cost.innerHTML;
+  });
+
+  return totalCost;
+};
 
 function setActiveStatuses(options = []) {
   const maxActiveOptionsNumber = 2;
@@ -967,7 +1067,7 @@ const Position = {
 const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
-  return newElement;
+  return newElement.firstChild;
 };
 
 // Рендер и анрендер для компонент
