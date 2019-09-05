@@ -1,5 +1,5 @@
 import {tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT} from './constants'
-import {render, Position} from './utils';
+import {render, Position, EventOption, replaceElement} from './utils';
 
 import {card} from './mocks/card';
 import {filters} from './mocks/filters';
@@ -23,42 +23,41 @@ const renderCards = (cardMock) => {
 
   const onEscKeyDown = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
-      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
     }
   };
 
   card.getElement()
     .querySelector(`.event__rollup-btn`)
     .addEventListener(`click`, () => {
-      tripEventsList.replaceChild(cardEdit.getElement(), card.getElement());
-      document.addEventListener(`keydown`, onEscKeyDown);
+      replaceElement(tripEventsList, cardEdit, card, EventOption.addEvent, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__input--destination`)
     .addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown)
+      document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__input--destination`)
     .addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown)
+      document.addEventListener(`keydown`, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__rollup-btn`)
     .addEventListener(`click`, () => {
-      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
     });
 
   tripEventsList
-    .addEventListener(`submit`, () => {
-      tripEventsList.replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
+    .addEventListener(`submit`, (evt) => {
+      if (evt.target === cardEdit.getElement()) {
+        evt.preventDefault();
+        replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
+      }
+    }, true);
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };

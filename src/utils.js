@@ -1,4 +1,4 @@
-import {monthNames} from './constants';
+import {monthNames, tripEventsList} from './constants';
 import {startMonth} from './constants';
 
 const getDuration = (start, end) => end - start;
@@ -25,6 +25,25 @@ function setActiveStatuses(options = []) {
     }
   }
 }
+
+
+const EventOption = {
+  addEvent: `addEventListener`,
+  removeEvent: `removeEventListener`
+};
+
+const replaceElement = (container, replacedElem, replaceElem, option, func) => {
+  switch (option) {
+    case EventOption.addEvent:
+      container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.addEventListener(`keydown`, func);
+      break;
+    case EventOption.removeEvent:
+      container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.removeEventListener(`keydown`, func);
+      break;
+  }
+};
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
@@ -59,6 +78,8 @@ export {
   getDuration,
   getMonth,
   getPrice,
+  EventOption,
+  replaceElement,
   setActiveStatuses,
   Position,
   createElement,

@@ -641,42 +641,41 @@ const renderCards = (cardMock) => {
 
   const onEscKeyDown = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
-      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["replaceElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card, cardEdit, _utils__WEBPACK_IMPORTED_MODULE_1__["EventOption"].removeEvent, onEscKeyDown);
     }
   };
 
   card.getElement()
     .querySelector(`.event__rollup-btn`)
     .addEventListener(`click`, () => {
-      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(cardEdit.getElement(), card.getElement());
-      document.addEventListener(`keydown`, onEscKeyDown);
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["replaceElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], cardEdit, card, _utils__WEBPACK_IMPORTED_MODULE_1__["EventOption"].addEvent, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__input--destination`)
     .addEventListener(`focus`, () => {
-      document.removeEventListener(`keydown`, onEscKeyDown)
+      document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__input--destination`)
     .addEventListener(`blur`, () => {
-      document.addEventListener(`keydown`, onEscKeyDown)
+      document.addEventListener(`keydown`, onEscKeyDown);
     });
 
   cardEdit.getElement()
     .querySelector(`.event__rollup-btn`)
     .addEventListener(`click`, () => {
-      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      Object(_utils__WEBPACK_IMPORTED_MODULE_1__["replaceElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card, cardEdit, _utils__WEBPACK_IMPORTED_MODULE_1__["EventOption"].removeEvent, onEscKeyDown);
     });
 
   _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"]
-    .addEventListener(`submit`, () => {
-      _constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"].replaceChild(card.getElement(), cardEdit.getElement());
-      document.removeEventListener(`keydown`, onEscKeyDown);
-    });
+    .addEventListener(`submit`, (evt) => {
+      if (evt.target === cardEdit.getElement()) {
+        evt.preventDefault();
+        Object(_utils__WEBPACK_IMPORTED_MODULE_1__["replaceElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card, cardEdit, _utils__WEBPACK_IMPORTED_MODULE_1__["EventOption"].removeEvent, onEscKeyDown);
+      }
+    }, true);
 
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
 };
@@ -1017,7 +1016,7 @@ const tripCost = (price) => {
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: getDuration, getMonth, getPrice, setActiveStatuses, Position, createElement, render, unrender */
+/*! exports provided: getDuration, getMonth, getPrice, EventOption, replaceElement, setActiveStatuses, Position, createElement, render, unrender */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1025,6 +1024,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDuration", function() { return getDuration; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMonth", function() { return getMonth; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPrice", function() { return getPrice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventOption", function() { return EventOption; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceElement", function() { return replaceElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveStatuses", function() { return setActiveStatuses; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Position", function() { return Position; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
@@ -1058,6 +1059,25 @@ function setActiveStatuses(options = []) {
     }
   }
 }
+
+
+const EventOption = {
+  addEvent: `addEventListener`,
+  removeEvent: `removeEventListener`
+};
+
+const replaceElement = (container, replacedElem, replaceElem, option, func) => {
+  switch (option) {
+    case EventOption.addEvent:
+      container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.addEventListener(`keydown`, func);
+      break;
+    case EventOption.removeEvent:
+      container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.removeEventListener(`keydown`, func);
+      break;
+  }
+};
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
