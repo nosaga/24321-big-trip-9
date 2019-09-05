@@ -15,6 +15,7 @@ import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
 import {TripCost} from "./components/trip-cost";
+import {AddNewEvent} from "./components/card-new";
 
 
 const renderCards = (cardMock) => {
@@ -62,6 +63,10 @@ const renderCards = (cardMock) => {
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };
 
+const renderCardAdd = () => {
+  const cardAdd = new AddNewEvent();
+  render(tripEvents, cardAdd.getElement(), Position.AFTERBEGIN);
+};
 
 const renderRoute = (route) => {
   const cardRoute = new CreateCardRoute(route);
@@ -90,7 +95,15 @@ const renderCosts = (costs) => {
 
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
-cardMocks.forEach((cardMock) => renderCards(cardMock));
+const renderCardTypes = () => {
+  if (cardMocks.length > 0) {
+    cardMocks.forEach((cardMock) => renderCards(cardMock))
+  } else {
+    renderCardAdd();
+  }
+};
+
+renderCardTypes();
 renderRoute(getCardRoute());
 renderControls(controls);
 renderFilters(filters);

@@ -237,6 +237,146 @@ class CardEdit {
 
 /***/ }),
 
+/***/ "./src/components/card-new.js":
+/*!************************************!*\
+  !*** ./src/components/card-new.js ***!
+  \************************************/
+/*! exports provided: AddNewEvent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddNewEvent", function() { return AddNewEvent; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils */ "./src/utils.js");
+
+
+class AddNewEvent {
+  getElement() {
+    if (!this._element) {
+      this._element = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["createElement"])(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return `<form class="trip-events__item  event  event--edit" action="#" method="post">
+      <header class="event__header">
+        <div class="event__type-wrapper">
+          <label class="event__type  event__type-btn" for="event-type-toggle-1">
+            <span class="visually-hidden">Choose event type</span>
+            <img class="event__type-icon" width="17" height="17" src="img/icons/flight.png" alt="Event type icon">
+          </label>
+          <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
+
+          <div class="event__type-list">
+            <fieldset class="event__type-group">
+              <legend class="visually-hidden">Transfer</legend>
+
+              <div class="event__type-item">
+                <input id="event-type-taxi-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="taxi">
+                <label class="event__type-label  event__type-label--taxi" for="event-type-taxi-1">Taxi</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-bus-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="bus">
+                <label class="event__type-label  event__type-label--bus" for="event-type-bus-1">Bus</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-train-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="train">
+                <label class="event__type-label  event__type-label--train" for="event-type-train-1">Train</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-ship-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="ship">
+                <label class="event__type-label  event__type-label--ship" for="event-type-ship-1">Ship</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-transport-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="transport">
+                <label class="event__type-label  event__type-label--transport" for="event-type-transport-1">Transport</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-drive-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="drive">
+                <label class="event__type-label  event__type-label--drive" for="event-type-drive-1">Drive</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-flight-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="flight" checked="">
+                <label class="event__type-label  event__type-label--flight" for="event-type-flight-1">Flight</label>
+              </div>
+            </fieldset>
+
+            <fieldset class="event__type-group">
+              <legend class="visually-hidden">Activity</legend>
+
+              <div class="event__type-item">
+                <input id="event-type-check-in-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="check-in">
+                <label class="event__type-label  event__type-label--check-in" for="event-type-check-in-1">Check-in</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-sightseeing-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="sightseeing">
+                <label class="event__type-label  event__type-label--sightseeing" for="event-type-sightseeing-1">Sightseeing</label>
+              </div>
+
+              <div class="event__type-item">
+                <input id="event-type-restaurant-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="restaurant">
+                <label class="event__type-label  event__type-label--restaurant" for="event-type-restaurant-1">Restaurant</label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <div class="event__field-group  event__field-group--destination">
+          <label class="event__label  event__type-output" for="event-destination-1">
+            Sightseeing at
+          </label>
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="" list="destination-list-1">
+          <datalist id="destination-list-1">
+            <option value="Amsterdam"></option>
+            <option value="Geneva"></option>
+            <option value="Chamonix"></option>
+            <option value="Saint Petersburg"></option>
+          </datalist>
+        </div>
+
+        <div class="event__field-group  event__field-group--time">
+          <label class="visually-hidden" for="event-start-time-1">
+            From
+          </label>
+          <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="18/03/19 00:00">
+          —
+          <label class="visually-hidden" for="event-end-time-1">
+            To
+          </label>
+          <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="18/03/19 00:00">
+        </div>
+
+        <div class="event__field-group  event__field-group--price">
+          <label class="event__label" for="event-price-1">
+            <span class="visually-hidden">Price</span>
+            €
+          </label>
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="">
+        </div>
+
+        <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
+        <button class="event__reset-btn" type="reset">Cancel</button>
+      </header>
+    </form>`
+  }
+}
+
+
+/***/ }),
+
 /***/ "./src/components/card-route.js":
 /*!**************************************!*\
   !*** ./src/components/card-route.js ***!
@@ -616,6 +756,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_filters__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/filters */ "./src/components/filters.js");
 /* harmony import */ var _components_sorting__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/sorting */ "./src/components/sorting.js");
 /* harmony import */ var _components_trip_cost__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/trip-cost */ "./src/components/trip-cost.js");
+/* harmony import */ var _components_card_new__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/card-new */ "./src/components/card-new.js");
+
 
 
 
@@ -680,6 +822,10 @@ const renderCards = (cardMock) => {
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
 };
 
+const renderCardAdd = () => {
+  const cardAdd = new _components_card_new__WEBPACK_IMPORTED_MODULE_15__["AddNewEvent"]();
+  Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEvents"], cardAdd.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].AFTERBEGIN);
+};
 
 const renderRoute = (route) => {
   const cardRoute = new _components_card_route__WEBPACK_IMPORTED_MODULE_10__["CreateCardRoute"](route);
@@ -708,7 +854,15 @@ const renderCosts = (costs) => {
 
 const cardMocks = new Array(_constants__WEBPACK_IMPORTED_MODULE_0__["CARD_COUNT"]).fill(``).map(_mocks_card__WEBPACK_IMPORTED_MODULE_2__["card"]);
 
-cardMocks.forEach((cardMock) => renderCards(cardMock));
+const renderCardTypes = () => {
+  if (cardMocks.length > 0) {
+    cardMocks.forEach((cardMock) => renderCards(cardMock))
+  } else {
+    renderCardAdd();
+  }
+};
+
+renderCardTypes();
 renderRoute(Object(_mocks_card_route__WEBPACK_IMPORTED_MODULE_4__["getCardRoute"])());
 renderControls(_mocks_controls__WEBPACK_IMPORTED_MODULE_5__["controls"]);
 renderFilters(_mocks_filters__WEBPACK_IMPORTED_MODULE_3__["filters"]);
@@ -1016,21 +1170,18 @@ const tripCost = (price) => {
 /*!**********************!*\
   !*** ./src/utils.js ***!
   \**********************/
-/*! exports provided: getDuration, getMonth, getPrice, EventOption, replaceElement, setActiveStatuses, Position, createElement, render, unrender */
+/*! exports provided: getDuration, getMonth, EventOption, replaceElement, Position, createElement, render */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDuration", function() { return getDuration; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMonth", function() { return getMonth; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPrice", function() { return getPrice; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventOption", function() { return EventOption; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "replaceElement", function() { return replaceElement; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setActiveStatuses", function() { return setActiveStatuses; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Position", function() { return Position; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createElement", function() { return createElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unrender", function() { return unrender; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./constants */ "./src/constants.js");
 
 
@@ -1048,18 +1199,6 @@ const getPrice = (costs) => {
 
   return totalCost;
 };
-
-function setActiveStatuses(options = []) {
-  const maxActiveOptionsNumber = 2;
-  const activeOptionsNumber = Math.floor(Math.random() * (maxActiveOptionsNumber + 1));
-
-  if (activeOptionsNumber) {
-    for (let i = 0; i < activeOptionsNumber; i++) {
-      options[Math.floor(Math.random() * options.length)].isChecked = true;
-    }
-  }
-}
-
 
 const EventOption = {
   addEvent: `addEventListener`,
@@ -1090,7 +1229,6 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-// Рендер и анрендер для компонент
 const render = (container, element, place) => {
   switch (place) {
     case Position.AFTERBEGIN:
