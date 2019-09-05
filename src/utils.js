@@ -5,26 +5,23 @@ const getDuration = (start, end) => end - start;
 
 const getMonth = () => monthNames[startMonth];
 
-const getPrice = (costs) => {
-  let totalCost = 0;
-  console.log(costs);
-  costs.forEach((cost) => {
-    totalCost += +cost.innerHTML;
-  });
-
-  return totalCost;
+const EventOption = {
+  addEvent: `addEventListener`,
+  removeEvent: `removeEventListener`
 };
 
-function setActiveStatuses(options = []) {
-  const maxActiveOptionsNumber = 2;
-  const activeOptionsNumber = Math.floor(Math.random() * (maxActiveOptionsNumber + 1));
-
-  if (activeOptionsNumber) {
-    for (let i = 0; i < activeOptionsNumber; i++) {
-      options[Math.floor(Math.random() * options.length)].isChecked = true;
-    }
+const replaceElement = (container, replacedElem, replaceElem, option, func) => {
+  switch (option) {
+    case EventOption.addEvent:
+      container.getElement().replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.addEventListener(`keydown`, func);
+      break;
+    case EventOption.removeEvent:
+      container.getElement().replaceChild(replacedElem.getElement(), replaceElem.getElement());
+      document.removeEventListener(`keydown`, func);
+      break;
   }
-}
+};
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
@@ -58,8 +55,8 @@ const unrender = (element) => {
 export {
   getDuration,
   getMonth,
-  getPrice,
-  setActiveStatuses,
+  EventOption,
+  replaceElement,
   Position,
   createElement,
   render,

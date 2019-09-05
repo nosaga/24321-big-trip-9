@@ -8,14 +8,13 @@ import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 import {tripCost} from './mocks/trip-cost';
 
-import {Card} from './components/cards';
-import {CardEdit} from './components/card-edit';
 import {CreateCardRoute} from './components/card-route';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
-import {TripCost} from "./components/trip-cost";
-import {CardsBoardController} from "./controllers/cards-board";
+import {TripCost} from './components/trip-cost';
+import {CardsBoardController} from './controllers/cards-board';
+import {AddNewEvent} from './components/card-new';
 
 
 const renderRoute = (route) => {
@@ -43,6 +42,11 @@ const renderCosts = (costs) => {
   render(tripInfo, costItems.getElement(), Position.BEFOREEND)
 };
 
+const renderCardAdd = () => {
+  const cardAdd = new AddNewEvent();
+  render(tripEvents, cardAdd.getElement(), Position.AFTERBEGIN);
+};
+
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
 renderRoute(getCardRoute());
@@ -51,7 +55,16 @@ renderFilters(filters);
 renderSorting(sorting);
 
 const cardsBoardController = new CardsBoardController(tripEventsList, cardMocks);
-cardsBoardController.init();
+
+const renderCardTypes = () => {
+  if (cardMocks.length > 0) {
+    cardsBoardController.init();
+  } else {
+    renderCardAdd();
+  }
+};
+
+renderCardTypes();
 
 const price = document.querySelectorAll(`.event__price-value`);
 renderCosts(tripCost(price));
