@@ -2,6 +2,7 @@ const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
+const form = document.querySelector(`form`);
 
 
 const CARD_COUNT = 3;
@@ -24,6 +25,7 @@ export {
   tripControls,
   tripEvents,
   tripEventsList,
+  form,
   CARD_COUNT,
   partialPath,
   cities,

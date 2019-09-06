@@ -1,4 +1,4 @@
-import {tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT} from './constants'
+import {tripInfo, tripControls, tripEvents, tripEventsList, form, CARD_COUNT} from './constants'
 import {render, Position, EventOption, replaceElement} from './utils';
 
 import {card} from './mocks/card';
@@ -52,13 +52,15 @@ const renderCards = (cardMock) => {
       replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
     });
 
+
   tripEventsList
     .addEventListener(`submit`, (evt) => {
-      if (evt.target === cardEdit.getElement()) {
+      let target = evt.target;
+      if (target.tagName === `FORM`) {
         evt.preventDefault();
         replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
       }
-    }, true);
+    });
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };
@@ -110,4 +112,5 @@ renderFilters(filters);
 renderSorting(sorting);
 
 const price = document.querySelectorAll(`.event__price-value`);
-renderCosts(tripCost(price));
+const addPrice = document.querySelectorAll(`.event__offer-price`);
+renderCosts(tripCost(price, addPrice));
