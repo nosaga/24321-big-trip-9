@@ -54,12 +54,9 @@ const renderCards = (cardMock) => {
 
   cardEdit.getElement()
     .addEventListener(`submit`, (evt) => {
-      let target = evt.target;
-      if (target.tagName === `FORM`) {
         evt.preventDefault();
         replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
-      }
-    }, true);
+    });
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };

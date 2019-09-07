@@ -864,12 +864,9 @@ const renderCards = (cardMock) => {
 
   cardEdit.getElement()
     .addEventListener(`submit`, (evt) => {
-      let target = evt.target;
-      if (target.tagName === `FORM`) {
         evt.preventDefault();
         Object(_utils__WEBPACK_IMPORTED_MODULE_1__["replaceElement"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card, cardEdit, _utils__WEBPACK_IMPORTED_MODULE_1__["EventOption"].removeEvent, onEscKeyDown);
-      }
-    }, true);
+    });
 
   Object(_utils__WEBPACK_IMPORTED_MODULE_1__["render"])(_constants__WEBPACK_IMPORTED_MODULE_0__["tripEventsList"], card.getElement(), _utils__WEBPACK_IMPORTED_MODULE_1__["Position"].BEFOREEND);
 };
