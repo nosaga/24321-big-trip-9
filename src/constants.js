@@ -16,5 +16,5 @@ export {
   CARD_COUNT,
   cities,
   monthNames,
-  photosArray,
+  photosArray
 };

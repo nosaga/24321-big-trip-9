@@ -1,7 +1,7 @@
 import {AbstractComponent} from './abstract-component';
 
 export class Card extends AbstractComponent {
-  constructor({tripRoute, options}) {
+  constructor({point}) {
     super();
     this._point = point;
   }

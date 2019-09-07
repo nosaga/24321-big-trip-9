@@ -14,10 +14,6 @@ import {CreateSorting} from './components/sorting';
 import {TripCost} from './components/trip-cost';
 import {CardsBoardController} from './controllers/cards-board';
 import {AddNewEvent} from './components/card-new';
-import {TripCost} from './components/trip-cost';
-import {AddNewEvent} from './components/card-new';
-
-
 
 const renderRoute = (route) => {
   const cardRoute = new CreateCardRoute(route);
@@ -51,7 +47,7 @@ const renderCardAdd = () => {
 
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
-renderRoute(getCardRoute());
+renderRoute(card());
 renderControls(controls);
 renderFilters(filters);
 renderSorting(sorting);

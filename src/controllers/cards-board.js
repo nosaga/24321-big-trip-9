@@ -24,14 +24,14 @@ export class CardsBoardController {
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
-        replaceElement(this._cardsList, cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
+        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
       }
     };
 
     cardComponent.getElement()
       .querySelector(`.event__rollup-btn`)
       .addEventListener(`click`, () => {
-        replaceElement(this._cardsList, cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
+        replaceElement(this._cardsList.getElement(), cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
       });
 
     cardEditComponent.getElement()
@@ -49,15 +49,13 @@ export class CardsBoardController {
     cardEditComponent.getElement()
       .querySelector(`.event__rollup-btn`)
       .addEventListener(`click`, () => {
-        replaceElement(this._cardsList, cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
+        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
       });
 
-    this._cardsList.getElement()
+    cardEditComponent.getElement()
       .addEventListener(`submit`, (evt) => {
-        if (evt.target === cardEditComponent.getElement()) {
-          evt.preventDefault();
-          replaceElement(this._cardsList, cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
-        }
+        evt.preventDefault();
+        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
       }, true);
 
     render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);

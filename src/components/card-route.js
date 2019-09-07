@@ -1,10 +1,10 @@
 import {AbstractComponent} from './abstract-component';
+import {monthNames} from '../constants';
 
 export class CreateCardRoute extends AbstractComponent {
   constructor({point}) {
     super();
     this._point = point;
-    this._element = null;
   }
 
   getTemplate() {
