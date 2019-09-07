@@ -1,9 +1,8 @@
 import {tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT} from './constants'
-import {render, Position} from './utils';
+import {render, Position, EventOption, replaceElement} from './utils';
 
 import {card} from './mocks/card';
 import {filters} from './mocks/filters';
-import {getCardRoute} from './mocks/card-route';
 import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 import {tripCost} from './mocks/trip-cost';
@@ -15,6 +14,9 @@ import {CreateSorting} from './components/sorting';
 import {TripCost} from './components/trip-cost';
 import {CardsBoardController} from './controllers/cards-board';
 import {AddNewEvent} from './components/card-new';
+import {TripCost} from './components/trip-cost';
+import {AddNewEvent} from './components/card-new';
+
 
 
 const renderRoute = (route) => {
@@ -67,4 +69,5 @@ const renderCardTypes = () => {
 renderCardTypes();
 
 const price = document.querySelectorAll(`.event__price-value`);
-renderCosts(tripCost(price));
+const addPrice = document.querySelectorAll(`.event__offer-price`);
+renderCosts(tripCost(price, addPrice));

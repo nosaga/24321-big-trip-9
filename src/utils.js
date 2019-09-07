@@ -1,24 +1,20 @@
-import {monthNames} from './constants';
-import {startMonth} from './constants';
-
-const getDuration = (start, end) => end - start;
-
-const getMonth = () => monthNames[startMonth];
+const isChecked = (setName, arrName) => {
+  return arrName.some((name) => name.name === setName);
+};
 
 const EventOption = {
   addEvent: `addEventListener`,
   removeEvent: `removeEventListener`
 };
 
-const replaceElement = (container, replacedElem, replaceElem, option, func) => {
+const replaceElement = (container, replacedElem, replaceElem, option, onEscKeyDown) => {
+  container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
   switch (option) {
     case EventOption.addEvent:
-      container.getElement().replaceChild(replacedElem.getElement(), replaceElem.getElement());
-      document.addEventListener(`keydown`, func);
+      document.addEventListener(`keydown`, onEscKeyDown);
       break;
     case EventOption.removeEvent:
-      container.getElement().replaceChild(replacedElem.getElement(), replaceElem.getElement());
-      document.removeEventListener(`keydown`, func);
+      document.removeEventListener(`keydown`, onEscKeyDown);
       break;
   }
 };
@@ -34,7 +30,6 @@ const createElement = (template) => {
   return newElement.firstChild;
 };
 
-// Рендер и анрендер для компонент
 const render = (container, element, place) => {
   switch (place) {
     case Position.AFTERBEGIN:
@@ -53,8 +48,7 @@ const unrender = (element) => {
 };
 
 export {
-  getDuration,
-  getMonth,
+  isChecked,
   EventOption,
   replaceElement,
   Position,
