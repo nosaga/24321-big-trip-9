@@ -1,4 +1,4 @@
-import {createElement} from '../utils';
+import {createElement, isChecked} from '../utils';
 
 export class CardEdit {
   constructor({point}) {
@@ -141,64 +141,26 @@ export class CardEdit {
 
           <section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-
             <div class="event__available-offers">
-              <div class="event__offer-selector">
-                <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" checked>
-                <label class="event__offer-label" for="event-offer-luggage-1">
-                  <span class="event__offer-title">Add luggage</span>
-                  +
-                  €&nbsp;<span class="event__offer-price">30</span>
-                </label>
-              </div>
-
-              <div class="event__offer-selector">
-                <input class="event__offer-checkbox  visually-hidden" id="event-offer-comfort-1" type="checkbox" name="event-offer-comfort">
-                  <label class="event__offer-label" for="event-offer-comfort-1">
-                    <span class="event__offer-title">Switch to comfort class</span>
+              ${this._point.offerOptions.map((item) => `
+                <div class="event__offer-selector">
+                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${isChecked(item.name, this._point.offers.offer) === true ? `checked` : ``}>
+                  <label class="event__offer-label" for="event-offer-luggage-1">
+                    <span class="event__offer-title">${item.name}</span>
                     +
-                    €&nbsp;<span class="event__offer-price">100</span>
+                    €&nbsp;<span class="event__offer-price">${item.price}</span>
                   </label>
                 </div>
-  
-                <div class="event__offer-selector">
-                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-meal-1" type="checkbox" name="event-offer-meal" >
-                    <label class="event__offer-label" for="event-offer-meal-1">
-                      <span class="event__offer-title">Add meal</span>
-                      +
-                      €&nbsp;<span class="event__offer-price">15</span>
-                    </label>
-                  </div>
-    
-                  <div class="event__offer-selector">
-                    <input class="event__offer-checkbox  visually-hidden" id="event-offer-seats-1" type="checkbox" name="event-offer-seats" >
-                      <label class="event__offer-label" for="event-offer-seats-1">
-                        <span class="event__offer-title">Choose seats</span>
-                        +
-                        €&nbsp;<span class="event__offer-price">5</span>
-                      </label>
-                    </div>
-      
-                    <div class="event__offer-selector">
-                      <input class="event__offer-checkbox  visually-hidden" id="event-offer-train-1" type="checkbox" name="event-offer-train" >
-                        <label class="event__offer-label" for="event-offer-train-1">
-                          <span class="event__offer-title">Travel by train</span>
-                          +
-                          €&nbsp;<span class="event__offer-price">40</span>
-                        </label>
-                      </div>
-                    </div>
-                  </section>
-        
-                  <section class="event__section  event__section--destination">
-                    <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                    <p class="event__destination-description">${this._point.destination.description}</p>
-
+                `).join(``)}
+              </section>
+              <section class="event__section  event__section--destination">
+                <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+                <p class="event__destination-description">${this._point.destination.description}</p>
             <div class="event__photos-container">
               <div class="event__photos-tape">
-              ${this._point.destination.photos[0].src.map((photo) => `
-                <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
-              `).join(``)}
+                ${this._point.destination.photos[0].src.map((photo) => `
+                  <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
+                `).join(``)}
               </div>
             </div>
           </section>

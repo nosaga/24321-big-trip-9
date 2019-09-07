@@ -1,5 +1,5 @@
 import {createElement} from '../utils';
-import {monthNames} from "../constants";
+import {monthNames} from '../constants';
 
 export class CreateCardRoute {
   constructor({point}) {

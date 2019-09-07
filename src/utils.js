@@ -1,9 +1,6 @@
-import {monthNames, tripEventsList} from './constants';
-import {startMonth} from './constants';
-
-const getDuration = (start, end) => end - start;
-
-const getMonth = () => monthNames[startMonth];
+const isChecked = (setName, arrName) => {
+  return arrName.some((name) => name.name === setName);
+};
 
 const EventOption = {
   addEvent: `addEventListener`,
@@ -51,8 +48,7 @@ const unrender = (element) => {
 };
 
 export {
-  getDuration,
-  getMonth,
+  isChecked,
   EventOption,
   replaceElement,
   Position,
