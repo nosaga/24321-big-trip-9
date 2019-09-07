@@ -1,9 +1,8 @@
-import {tripInfo, tripControls, tripEvents, tripEventsList, form, CARD_COUNT} from './constants'
+import {tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT} from './constants'
 import {render, Position, EventOption, replaceElement} from './utils';
 
 import {card} from './mocks/card';
 import {filters} from './mocks/filters';
-import {getCardRoute} from './mocks/card-route';
 import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 import {tripCost} from './mocks/trip-cost';
@@ -14,8 +13,8 @@ import {CreateCardRoute} from './components/card-route';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
-import {TripCost} from "./components/trip-cost";
-import {AddNewEvent} from "./components/card-new";
+import {TripCost} from './components/trip-cost';
+import {AddNewEvent} from './components/card-new';
 
 
 const renderCards = (cardMock) => {
@@ -53,14 +52,14 @@ const renderCards = (cardMock) => {
     });
 
 
-  tripEventsList
+  cardEdit.getElement()
     .addEventListener(`submit`, (evt) => {
       let target = evt.target;
       if (target.tagName === `FORM`) {
         evt.preventDefault();
         replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
       }
-    });
+    }, true);
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
 };
@@ -106,7 +105,7 @@ const renderCardTypes = () => {
 };
 
 renderCardTypes();
-renderRoute(getCardRoute());
+renderRoute(card());
 renderControls(controls);
 renderFilters(filters);
 renderSorting(sorting);

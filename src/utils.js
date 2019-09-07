@@ -10,14 +10,14 @@ const EventOption = {
   removeEvent: `removeEventListener`
 };
 
-const replaceElement = (container, replacedElem, replaceElem, option, cb) => {
+const replaceElement = (container, replacedElem, replaceElem, option, onEscKeyDown) => {
   container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
   switch (option) {
     case EventOption.addEvent:
-      document.addEventListener(`keydown`, cb);
+      document.addEventListener(`keydown`, onEscKeyDown);
       break;
     case EventOption.removeEvent:
-      document.removeEventListener(`keydown`, cb);
+      document.removeEventListener(`keydown`, onEscKeyDown);
       break;
   }
 };
@@ -31,13 +31,6 @@ const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
   return newElement.firstChild;
-};
-
-const createCardElement = (template) => {
-  const newElement = document.createElement(`li`);
-  newElement.classList.add(`trip-events__item`);
-  newElement.innerHTML = template;
-  return newElement;
 };
 
 const render = (container, element, place) => {
@@ -64,6 +57,5 @@ export {
   replaceElement,
   Position,
   createElement,
-  createCardElement,
   render,
 }
