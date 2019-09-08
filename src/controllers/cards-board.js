@@ -62,3 +62,4 @@ export class CardsBoardController {
     render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);
   }
 }
+
