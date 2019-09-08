@@ -8,13 +8,14 @@ export class CardsBoardController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
-    this._eventsContainer = new TripEventsContainer();
+    //this._eventsContainer = new TripEventsContainer();
     this._cardsList = new TripEventsList();
   }
 
   init() {
-    render(this._container, this._eventsContainer.getElement(), Position.BEFOREEND);
-    render(this._eventsContainer.getElement(), this._cardsList.getElement(), Position.BEFOREEND);
+    //render(this._container, this._eventsContainer.getElement(), Position.BEFOREEND);
+    //render(this._eventsContainer.getElement(), this._cardsList.getElement(), Position.BEFOREEND);
+    render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
     this._cards.forEach((cardMock) => this._renderCards(cardMock));
   }
 

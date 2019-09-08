@@ -42,7 +42,7 @@ const renderCosts = (costs) => {
 
 const renderCardAdd = () => {
   const cardAdd = new AddNewEvent();
-  render(tripEvents, cardAdd.getElement(), Position.AFTERBEGIN);
+  render(tripEventsList, cardAdd.getElement(), Position.AFTERBEGIN);
 };
 
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
