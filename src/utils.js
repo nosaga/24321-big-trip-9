@@ -47,6 +47,8 @@ const unrender = (element) => {
   }
 };
 
+//const sortNumbers
+
 export {
   isChecked,
   EventOption,

@@ -71,12 +71,9 @@ export class CardsBoardController {
     }
 
     this._cardsList.getElement().innerHTML = ``;
-
-    console.log(evt.target.dataset.sortType);
     switch (evt.target.dataset.sortType) {
       case `event`:
-        const sortedByEventCards = this._cards.slice().sort();
-        console.log(this._cards.slice());
+        const sortedByEventCards = this._cards.slice().sort((a, b) => a.point.type > b.point.type);
         sortedByEventCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `time`:
@@ -84,7 +81,7 @@ export class CardsBoardController {
         sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `price`:
-        const sortedByPriceCards = this._cards.slice().sort(sortNumbers);
+        const sortedByPriceCards = this._cards.slice().sort((a, b) => a.point.price > b.point.price ? 1 : -1);
         sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
     }
