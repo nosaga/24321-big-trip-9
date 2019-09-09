@@ -1,5 +1,5 @@
-const isChecked = (setName, arrName) => {
-  return arrName.some((name) => name.name === setName);
+const isChecked = (setName, dataName) => {
+  return dataName.some((item) => item.name === setName);
 };
 
 const EventOption = {

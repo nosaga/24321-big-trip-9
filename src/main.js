@@ -27,35 +27,45 @@ const renderCards = (cardMock) => {
     }
   };
 
-  card.getElement()
-    .querySelector(`.event__rollup-btn`)
-    .addEventListener(`click`, () => {
+  tripEventsList
+    .addEventListener(`click`, (evt) => {
+      if(evt.target !== card.getElement().querySelector(`.event__rollup-btn`)) {
+        return;
+      }
       replaceElement(tripEventsList, cardEdit, card, EventOption.addEvent, onEscKeyDown);
     });
 
-  cardEdit.getElement()
-    .querySelector(`.event__input--destination`)
-    .addEventListener(`focus`, () => {
+  tripEventsList
+    .addEventListener(`click`, (evt) => {
+      if(evt.target !== cardEdit.getElement().querySelector(`.event__rollup-btn`)) {
+        return;
+      }
+      replaceElement(tripEventsList, card, cardEdit, EventOption.addEvent, onEscKeyDown);
+    });
+
+  tripEventsList
+    .addEventListener(`focus`, (evt) => {
+      if(evt.target !== cardEdit.querySelector(`.event__input--destination`)) {
+        return;
+      }
       document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
-  cardEdit.getElement()
-    .querySelector(`.event__input--destination`)
-    .addEventListener(`blur`, () => {
+  tripEventsList
+    .addEventListener(`blur`, (evt) => {
+      if(evt.target !== cardEdit.querySelector(`.event__input--destination`)) {
+        return;
+      }
       document.addEventListener(`keydown`, onEscKeyDown);
     });
 
-  cardEdit.getElement()
-    .querySelector(`.event__rollup-btn`)
-    .addEventListener(`click`, () => {
-      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
-    });
-
-
-  cardEdit.getElement()
+  tripEventsList
     .addEventListener(`submit`, (evt) => {
-        evt.preventDefault();
-        replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
+      evt.preventDefault();
+      if(evt.target !== cardEdit.getElement().querySelector(`form`)) {
+        return;
+      }
+      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
     });
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);
