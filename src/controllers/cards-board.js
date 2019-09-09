@@ -1,22 +1,24 @@
 import {TripEventsContainer} from '../components/trip-events-container';
+import {tripEvents} from "../constants";
 import {TripEventsList} from '../components/trip-events-list';
 import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
+import {Sort} from '../components/sort';
 
 export class CardsBoardController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
-    //this._eventsContainer = new TripEventsContainer();
     this._cardsList = new TripEventsList();
+    this._sort = new Sort();
   }
 
   init() {
-    //render(this._container, this._eventsContainer.getElement(), Position.BEFOREEND);
-    //render(this._eventsContainer.getElement(), this._cardsList.getElement(), Position.BEFOREEND);
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
+    render(tripEvents, this._sort.getElement(), Position.AFTERBEGIN);
     this._cards.forEach((cardMock) => this._renderCards(cardMock));
+    this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
   }
 
   _renderCards(card) {
@@ -60,6 +62,32 @@ export class CardsBoardController {
       }, true);
 
     render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);
+  }
+
+  _onSortLinkClick(evt) {
+    evt.preventDefault();
+    if (evt.target.tagName !== `LABEL`) {
+      return;
+    }
+
+    this._cardsList.getElement().innerHTML = ``;
+
+    console.log(evt.target.dataset.sortType);
+    switch (evt.target.dataset.sortType) {
+      case `event`:
+        const sortedByEventCards = this._cards.slice().sort();
+        console.log(this._cards.slice());
+        sortedByEventCards.forEach((cardMock) => this._renderCards(cardMock));
+        break;
+      case `time`:
+        const sortedByTimeCards = this._cards.slice().sort((a, b) =>  b.startTime - a.startTime);
+        sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
+        break;
+      case `price`:
+        const sortedByPriceCards = this._cards.slice().sort(sortNumbers);
+        sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
+        break;
+    }
   }
 }
 

@@ -29,11 +29,11 @@ const renderFilters = (filters) => {
   const filtersRoute = new CreateFilters(filters);
   render(tripControls, filtersRoute.getElement(), Position.BEFOREEND);
 };
-
-const renderSorting = (sorting) => {
-  const sortingRoute = new CreateSorting(sorting);
-  render(tripEvents, sortingRoute.getElement(), Position.AFTERBEGIN);
-};
+//
+// const renderSorting = (sorting) => {
+//   const sortingRoute = new CreateSorting(sorting);
+//   render(tripEvents, sortingRoute.getElement(), Position.AFTERBEGIN);
+// };
 
 const renderCosts = (costs) => {
   const costItems = new TripCost(costs);
@@ -50,7 +50,7 @@ const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 renderRoute(card());
 renderControls(controls);
 renderFilters(filters);
-renderSorting(sorting);
+//renderSorting(sorting);
 
 const cardsBoardController = new CardsBoardController(tripEventsList, cardMocks);
 
