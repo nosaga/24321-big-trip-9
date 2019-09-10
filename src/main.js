@@ -21,6 +21,12 @@ const renderCards = (cardMock) => {
   const card = new Card(cardMock);
   const cardEdit = new CardEdit(cardMock);
 
+  const eventInput = cardEdit.getElement().querySelector(`.event__input--destination`);
+  const rollupBtnOpen = card.getElement().querySelector(`.event__rollup-btn`);
+  const rollupBtnClose = cardEdit.getElement().querySelector(`.event__rollup-btn`);
+  const form = cardEdit.getElement().querySelector(`form`);
+
+
   const onEscKeyDown = (evt) => {
     if (evt.key === `Escape` || evt.key === `Esc`) {
       replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
@@ -29,43 +35,38 @@ const renderCards = (cardMock) => {
 
   tripEventsList
     .addEventListener(`click`, (evt) => {
-      if(evt.target !== card.getElement().querySelector(`.event__rollup-btn`)) {
-        return;
+      if (evt.target === rollupBtnOpen) {
+        replaceElement(tripEventsList, cardEdit, card, EventOption.addEvent, onEscKeyDown);
       }
-      replaceElement(tripEventsList, cardEdit, card, EventOption.addEvent, onEscKeyDown);
     });
 
   tripEventsList
     .addEventListener(`click`, (evt) => {
-      if(evt.target !== cardEdit.getElement().querySelector(`.event__rollup-btn`)) {
-        return;
+      if (evt.target === rollupBtnClose) {
+        replaceElement(tripEventsList, card, cardEdit, EventOption.addEvent, onEscKeyDown);
       }
-      replaceElement(tripEventsList, card, cardEdit, EventOption.addEvent, onEscKeyDown);
     });
 
   tripEventsList
     .addEventListener(`focus`, (evt) => {
-      if(evt.target !== cardEdit.querySelector(`.event__input--destination`)) {
-        return;
+      if (evt.target === eventInput) {
+        document.removeEventListener(`keydown`, onEscKeyDown);
       }
-      document.removeEventListener(`keydown`, onEscKeyDown);
     });
 
   tripEventsList
     .addEventListener(`blur`, (evt) => {
-      if(evt.target !== cardEdit.querySelector(`.event__input--destination`)) {
-        return;
+      if (evt.target === eventInput) {
+        document.addEventListener(`keydown`, onEscKeyDown);
       }
-      document.addEventListener(`keydown`, onEscKeyDown);
     });
 
   tripEventsList
     .addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      if(evt.target !== cardEdit.getElement().querySelector(`form`)) {
-        return;
+      if (evt.target === form) {
+        replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
       }
-      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
     });
 
   render(tripEventsList, card.getElement(), Position.BEFOREEND);

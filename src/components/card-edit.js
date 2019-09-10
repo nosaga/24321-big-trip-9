@@ -144,21 +144,22 @@ export class CardEdit {
                     €&nbsp;<span class="event__offer-price">${item.price}</span>
                   </label>
                 </div>
+              `).join(``)}
+            </div>
+          </section>
+          <section class="event__section  event__section--destination">
+            <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+            <p class="event__destination-description">${this._point.destination.description}</p>
+            <div class="event__photos-container">
+              <div class="event__photos-tape">
+                ${this._point.destination.photos[0].src.map((photo) => `
+                  <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
                 `).join(``)}
-              </section>
-              <section class="event__section  event__section--destination">
-                <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                <p class="event__destination-description">${this._point.destination.description}</p>
-                <div class="event__photos-container">
-                  <div class="event__photos-tape">
-                  ${this._point.destination.photos[0].src.map((photo) => `
-                    <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
-                  `).join(``)}
-                  </div>
-                </div>
-            </section>
+              </div>
+            </div>
         </section>
-      </form>
-    </li>`;
+      </section>
+    </form>
+  </li>`;
   }
 }

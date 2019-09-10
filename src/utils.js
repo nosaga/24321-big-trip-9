@@ -1,6 +1,4 @@
-const isChecked = (setName, dataName) => {
-  return dataName.some((item) => item.name === setName);
-};
+const isChecked = (activeOption, options) => options.some((it) => it.name === activeOption);
 
 const EventOption = {
   addEvent: `addEventListener`,
