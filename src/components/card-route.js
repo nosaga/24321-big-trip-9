@@ -1,13 +1,10 @@
-import {createElement} from "../utils";
+import {createElement} from '../utils';
+import {monthNames} from '../constants';
 
 export class CreateCardRoute {
-  constructor({cityStart, cityTransfer, cityEnd, startMonth, startDate, endDate}) {
-    this._cityStart = cityStart;
-    this._cityTransfer = cityTransfer;
-    this._cityEnd = cityEnd;
-    this._startMonth = startMonth;
-    this._startDate = startDate;
-    this._endDate = endDate;
+  constructor({point}) {
+    this._point = point;
+    this._element = null;
   }
 
   getElement() {
@@ -23,12 +20,10 @@ export class CreateCardRoute {
   }
 
   getTemplate() {
-    return `
-    <div class="trip-info__main">
-      <h1 class="trip-info__title">${this._cityStart} &mdash; ${this._cityTransfer !== `` ? `...&mdash;` : ``}   ${this._cityEnd}</h1>
-      <p class="trip-info__dates">${this._startMonth} ${this._startDate.getUTCDate()}&nbsp;—&nbsp;${this._endDate.getUTCDate()}</p>
-    </div>
-  `;
+    return `<div class="trip-info__main">
+      <h1 class="trip-info__title">${this._point.destination.name} &mdash; ${this._point.destination.name !== `` ? `...&mdash;` : ``}   ${this._point.destination.name}</h1>
+      <p class="trip-info__dates">${monthNames[this._point.dateFrom.getUTCMonth()]} ${this._point.dateFrom.getUTCDate()}&nbsp;—&nbsp;${this._point.dateTo.getUTCDate()}</p>
+    </div>`;
   }
 }
 

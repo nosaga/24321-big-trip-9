@@ -1,20 +1,21 @@
-import {monthNames} from './constants';
-import {startMonth} from './constants';
+const isChecked = (activeOption, options) => options.some((it) => it.name === activeOption);
 
-const getDuration = (start, end) => end - start;
+const EventOption = {
+  addEvent: `addEventListener`,
+  removeEvent: `removeEventListener`
+};
 
-const getMonth = () => monthNames[startMonth];
-
-function setActiveStatuses(options = []) {
-  const maxActiveOptionsNumber = 2;
-  const activeOptionsNumber = Math.floor(Math.random() * (maxActiveOptionsNumber + 1));
-
-  if (activeOptionsNumber) {
-    for (let i = 0; i < activeOptionsNumber; i++) {
-      options[Math.floor(Math.random() * options.length)].isChecked = true;
-    }
+const replaceElement = (container, replacedElem, replaceElem, option, onEscKeyDown) => {
+  container.replaceChild(replacedElem.getElement(), replaceElem.getElement());
+  switch (option) {
+    case EventOption.addEvent:
+      document.addEventListener(`keydown`, onEscKeyDown);
+      break;
+    case EventOption.removeEvent:
+      document.removeEventListener(`keydown`, onEscKeyDown);
+      break;
   }
-}
+};
 
 const Position = {
   AFTERBEGIN: `afterbegin`,
@@ -24,10 +25,9 @@ const Position = {
 const createElement = (template) => {
   const newElement = document.createElement(`div`);
   newElement.innerHTML = template;
-  return newElement;
+  return newElement.firstChild;
 };
 
-// Рендер и анрендер для компонент
 const render = (container, element, place) => {
   switch (place) {
     case Position.AFTERBEGIN:
@@ -46,11 +46,10 @@ const unrender = (element) => {
 };
 
 export {
-  getDuration,
-  getMonth,
-  setActiveStatuses,
+  isChecked,
+  EventOption,
+  replaceElement,
   Position,
   createElement,
   render,
-  unrender
 }
