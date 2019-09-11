@@ -3,7 +3,7 @@ import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 
-export class CardsBoardController {
+export class TripController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
