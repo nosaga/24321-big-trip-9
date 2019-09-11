@@ -1,5 +1,3 @@
-import {TripEventsContainer} from '../components/trip-events-container';
-import {tripEvents} from "../constants";
 import {TripEventsList} from '../components/trip-events-list';
 import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
@@ -7,7 +5,7 @@ import {CardEdit} from '../components/card-edit';
 import {Sort} from '../components/sort';
 import {getDuration} from '../utils';
 
-export class CardsBoardController {
+export class TripController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
@@ -26,41 +24,53 @@ export class CardsBoardController {
     const cardComponent = new Card(card);
     const cardEditComponent = new CardEdit(card);
 
+    const eventInput = cardEditComponent.getElement().querySelector(`.event__input--destination`);
+    const rollupBtnOpen = cardComponent.getElement().querySelector(`.event__rollup-btn`);
+    const rollupBtnClose = cardEditComponent.getElement().querySelector(`.event__rollup-btn`);
+    const form = cardEditComponent.getElement().querySelector(`form`);
+
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
         replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
+
       }
     };
 
-    cardComponent.getElement()
-      .querySelector(`.event__rollup-btn`)
-      .addEventListener(`click`, () => {
-        replaceElement(this._cardsList.getElement(), cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
+    this._cardsList.getElement()
+      .addEventListener(`click`, (evt) => {
+        if (evt.target === rollupBtnOpen) {
+          replaceElement(this._cardsList.getElement(), cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
+        }
       });
 
-    cardEditComponent.getElement()
-      .querySelector(`.event__input--destination`)
-      .addEventListener(`focus`, () => {
-        document.removeEventListener(`keydown`, onEscKeyDown);
+    this._cardsList.getElement()
+      .addEventListener(`click`, (evt) => {
+        if (evt.target === rollupBtnClose) {
+          replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.addEvent, onEscKeyDown);
+        }
       });
 
-    cardEditComponent.getElement()
-      .querySelector(`.event__input--destination`)
-      .addEventListener(`blur`, () => {
-        document.addEventListener(`keydown`, onEscKeyDown);
+    this._cardsList.getElement()
+      .addEventListener(`focus`, (evt) => {
+        if (evt.target === eventInput) {
+          document.removeEventListener(`keydown`, onEscKeyDown);
+        }
       });
 
-    cardEditComponent.getElement()
-      .querySelector(`.event__rollup-btn`)
-      .addEventListener(`click`, () => {
-        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
+    this._cardsList.getElement()
+      .addEventListener(`blur`, (evt) => {
+        if (evt.target === eventInput) {
+          document.addEventListener(`keydown`, onEscKeyDown);
+        }
       });
 
-    cardEditComponent.getElement()
+    this._cardsList.getElement()
       .addEventListener(`submit`, (evt) => {
         evt.preventDefault();
-        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
-      }, true);
+        if (evt.target === form) {
+          replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
+        }
+      });
 
     render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);
   }

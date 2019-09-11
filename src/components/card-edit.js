@@ -91,7 +91,6 @@ export class CardEdit extends AbstractComponent {
               <option value="Chamonix"></option>
             </datalist>
           </div>
-
           <div class="event__field-group  event__field-group--time">
             <label class="visually-hidden" for="event-start-time-1">
               From
@@ -103,7 +102,6 @@ export class CardEdit extends AbstractComponent {
             </label>
             <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._point.dateTo.getUTCDate()}/${this._point.dateTo.getUTCMonth()}/${this._point.dateTo.getUTCFullYear().toString().substr(2, 2)} ${this._point.dateTo.getUTCHours()}:${this._point.dateTo.getUTCMinutes()}">
           </div>
-
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
               <span class="visually-hidden">Price</span>
@@ -111,10 +109,8 @@ export class CardEdit extends AbstractComponent {
             </label>
             <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._point.basePrice}">
           </div>
-
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Delete</button>
-
           <input id="event-favorite-1" class="event__favorite-checkbox  visually-hidden" type="checkbox" name="event-favorite" checked="">
           <label class="event__favorite-btn" for="event-favorite-1">
             <span class="visually-hidden">Add to favorite</span>
@@ -122,31 +118,29 @@ export class CardEdit extends AbstractComponent {
               <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z"></path>
             </svg>
           </label>
-
           <button class="event__rollup-btn" type="button">
             <span class="visually-hidden">Open event</span>
           </button>
         </header>
-
         <section class="event__details">
-
           <section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
             <div class="event__available-offers">
               ${this._point.offerOptions.map((item) => `
                 <div class="event__offer-selector">
-                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${isChecked(item.name, this._point.offers.offer) === true ? `checked` : ``}>
+                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${isChecked(item.name, this._point.offers.offer) ? `checked` : ``}>
                   <label class="event__offer-label" for="event-offer-luggage-1">
                     <span class="event__offer-title">${item.name}</span>
                     +
                     €&nbsp;<span class="event__offer-price">${item.price}</span>
                   </label>
                 </div>
-                `).join(``)}
-              </section>
-              <section class="event__section  event__section--destination">
-                <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-                <p class="event__destination-description">${this._point.destination.description}</p>
+              `).join(``)}
+            </div>
+          </section>
+          <section class="event__section  event__section--destination">
+            <h3 class="event__section-title  event__section-title--destination">Destination</h3>
+            <p class="event__destination-description">${this._point.destination.description}</p>
             <div class="event__photos-container">
               <div class="event__photos-tape">
                 ${this._point.destination.photos[0].src.map((photo) => `
@@ -154,9 +148,9 @@ export class CardEdit extends AbstractComponent {
                 `).join(``)}
               </div>
             </div>
-          </section>
         </section>
-      </form>
-    </li>`;
+      </section>
+    </form>
+  </li>`;
   }
 }

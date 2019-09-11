@@ -12,7 +12,7 @@ import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
 import {TripCost} from './components/trip-cost';
-import {CardsBoardController} from './controllers/cards-board';
+import {TripController} from './controllers/cards-board';
 import {AddNewEvent} from './components/card-new';
 
 const renderRoute = (route) => {
@@ -52,7 +52,7 @@ renderControls(controls);
 renderFilters(filters);
 //renderSorting(sorting);
 
-const cardsBoardController = new CardsBoardController(tripEventsList, cardMocks);
+const cardsBoardController = new TripController(tripEventsList, cardMocks);
 
 const renderCardTypes = () => {
   if (cardMocks.length > 0) {
