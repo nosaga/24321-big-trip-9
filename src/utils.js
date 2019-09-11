@@ -47,6 +47,13 @@ const unrender = (element) => {
   }
 };
 
+const getDuration = (startPoint, endPoint, startPointNext, endPointNext) => {
+  const first = endPoint - startPoint;
+  const next = endPointNext - startPointNext;
+
+  return first - next
+};
+
 //const sortNumbers
 
 export {
@@ -56,5 +63,6 @@ export {
   Position,
   createElement,
   render,
-  unrender
+  unrender,
+  getDuration
 }

@@ -5,6 +5,7 @@ import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {Sort} from '../components/sort';
+import {getDuration} from '../utils';
 
 export class CardsBoardController {
   constructor(container, cards) {
@@ -71,20 +72,21 @@ export class CardsBoardController {
     }
 
     this._cardsList.getElement().innerHTML = ``;
+
     switch (evt.target.dataset.sortType) {
-      case `event`:
-        const sortedByEventCards = this._cards.slice().sort((a, b) => a.point.type > b.point.type);
-        sortedByEventCards.forEach((cardMock) => this._renderCards(cardMock));
-        break;
       case `time`:
-        const sortedByTimeCards = this._cards.slice().sort((a, b) =>  b.startTime - a.startTime);
+        const sortedByTimeCards = this._cards.slice().sort((a, b) =>  getDuration(a.point.dateFrom, a.point.dateTo,b.point.dateFrom, b.point.dateTo));
         sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `price`:
-        const sortedByPriceCards = this._cards.slice().sort((a, b) => a.point.price > b.point.price ? 1 : -1);
+        const sortedByPriceCards = this._cards.slice().sort((a, b) => b.point.basePrice - a.point.basePrice);
         sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
+        break;
+      case `event`:
+        this._cards.forEach((cardMock) => this._renderCards(cardMock));
         break;
     }
   }
 }
+
 
