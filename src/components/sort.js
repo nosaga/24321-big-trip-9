@@ -31,6 +31,6 @@ export class Sort extends AbstractComponent {
       </div>
 
       <span class="trip-sort__item  trip-sort__item--offers">Offers</span>
-    </form>`
+    </form>`;
   }
 }

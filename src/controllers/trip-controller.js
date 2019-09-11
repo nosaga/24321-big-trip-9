@@ -1,4 +1,5 @@
 import {TripEventsList} from '../components/trip-events-list';
+import {tripEvents} from "../constants";
 import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
@@ -85,7 +86,7 @@ export class TripController {
 
     switch (evt.target.dataset.sortType) {
       case `time`:
-        const sortedByTimeCards = this._cards.slice().sort((a, b) =>  getDuration(a.point.dateFrom, a.point.dateTo,b.point.dateFrom, b.point.dateTo));
+        const sortedByTimeCards = this._cards.slice().sort((a, b) => getDuration(a.point.dateFrom, a.point.dateTo, b.point.dateFrom, b.point.dateTo));
         sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `price`:

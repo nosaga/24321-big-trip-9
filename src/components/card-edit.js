@@ -7,7 +7,6 @@ export class CardEdit extends AbstractComponent {
     this._point = point;
   }
 
-
   getTemplate() {
     return `<li class="trip-events__item">
       <form class="event  event--edit" action="#" method="post">
