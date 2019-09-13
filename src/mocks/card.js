@@ -1,4 +1,4 @@
-import {cities, photosArray} from '../constants';
+import {cities, photos} from '../constants';
 
 export const card = () => ({
   point: {
@@ -20,7 +20,7 @@ export const card = () => ({
       name: cities[Math.floor(Math.random() * cities.length)],
       photos: [
         {
-          src: photosArray.map(() => `http://picsum.photos/300/150?r=`),
+          src: photos.map(() => `http://picsum.photos/300/150?r=`),
         }
       ]
     },
