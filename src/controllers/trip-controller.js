@@ -25,7 +25,7 @@ export class TripController {
     const cardComponent = new Card(card);
     const cardEditComponent = new CardEdit(card);
 
-    const eventInput = cardEditComponent.getElement().querySelector(`.event__input--destination`);
+    const destinationInput = cardEditComponent.getElement().querySelector(`.event__input--destination`);
     const rollupBtnOpen = cardComponent.getElement().querySelector(`.event__rollup-btn`);
     const rollupBtnClose = cardEditComponent.getElement().querySelector(`.event__rollup-btn`);
     const form = cardEditComponent.getElement().querySelector(`form`);
@@ -41,26 +41,21 @@ export class TripController {
       .addEventListener(`click`, (evt) => {
         if (evt.target === rollupBtnOpen) {
           replaceElement(this._cardsList.getElement(), cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
-        }
-      });
-
-    this._cardsList.getElement()
-      .addEventListener(`click`, (evt) => {
-        if (evt.target === rollupBtnClose) {
+        } else if (evt.target === rollupBtnClose) {
           replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.addEvent, onEscKeyDown);
         }
       });
 
     this._cardsList.getElement()
       .addEventListener(`focus`, (evt) => {
-        if (evt.target === eventInput) {
+        if (evt.target === destinationInput) {
           document.removeEventListener(`keydown`, onEscKeyDown);
         }
       });
 
     this._cardsList.getElement()
       .addEventListener(`blur`, (evt) => {
-        if (evt.target === eventInput) {
+        if (evt.target === destinationInput) {
           document.addEventListener(`keydown`, onEscKeyDown);
         }
       });
