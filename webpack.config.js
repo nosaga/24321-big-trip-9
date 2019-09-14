@@ -8,7 +8,6 @@ module.exports = {
     path: path.join(__dirname, `public`),
     publicPath: `/`,
   },
-  watch: true,
   devtool: `source-map`,
   devServer: {
     contentBase: path.join(__dirname, `public`),
