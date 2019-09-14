@@ -6,7 +6,7 @@ const CARD_COUNT = 3;
 
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
 const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
-const photosArray = new Array(5).fill(``);
+const photos = new Array(5).fill(``);
 
 export {
   tripInfo,
@@ -16,5 +16,5 @@ export {
   CARD_COUNT,
   cities,
   monthNames,
-  photosArray,
+  photos,
 };

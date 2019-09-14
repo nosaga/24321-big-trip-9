@@ -7,75 +7,13 @@ import {controls} from './mocks/controls';
 import {sorting} from './mocks/sorting';
 import {tripCost} from './mocks/trip-cost';
 
-import {Card} from './components/cards';
-import {CardEdit} from './components/card-edit';
 import {CreateCardRoute} from './components/card-route';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {CreateSorting} from './components/sorting';
 import {TripCost} from './components/trip-cost';
+import {TripController} from './controllers/cards-board';
 import {AddNewEvent} from './components/card-new';
-
-
-const renderCards = (cardMock) => {
-  const card = new Card(cardMock);
-  const cardEdit = new CardEdit(cardMock);
-
-  const eventInput = cardEdit.getElement().querySelector(`.event__input--destination`);
-  const rollupBtnOpen = card.getElement().querySelector(`.event__rollup-btn`);
-  const rollupBtnClose = cardEdit.getElement().querySelector(`.event__rollup-btn`);
-  const form = cardEdit.getElement().querySelector(`form`);
-
-
-  const onEscKeyDown = (evt) => {
-    if (evt.key === `Escape` || evt.key === `Esc`) {
-      replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
-    }
-  };
-
-  tripEventsList
-    .addEventListener(`click`, (evt) => {
-      if (evt.target === rollupBtnOpen) {
-        replaceElement(tripEventsList, cardEdit, card, EventOption.addEvent, onEscKeyDown);
-      }
-    });
-
-  tripEventsList
-    .addEventListener(`click`, (evt) => {
-      if (evt.target === rollupBtnClose) {
-        replaceElement(tripEventsList, card, cardEdit, EventOption.addEvent, onEscKeyDown);
-      }
-    });
-
-  tripEventsList
-    .addEventListener(`focus`, (evt) => {
-      if (evt.target === eventInput) {
-        document.removeEventListener(`keydown`, onEscKeyDown);
-      }
-    });
-
-  tripEventsList
-    .addEventListener(`blur`, (evt) => {
-      if (evt.target === eventInput) {
-        document.addEventListener(`keydown`, onEscKeyDown);
-      }
-    });
-
-  tripEventsList
-    .addEventListener(`submit`, (evt) => {
-      evt.preventDefault();
-      if (evt.target === form) {
-        replaceElement(tripEventsList, card, cardEdit, EventOption.removeEvent, onEscKeyDown);
-      }
-    });
-
-  render(tripEventsList, card.getElement(), Position.BEFOREEND);
-};
-
-const renderCardAdd = () => {
-  const cardAdd = new AddNewEvent();
-  render(tripEvents, cardAdd.getElement(), Position.AFTERBEGIN);
-};
 
 const renderRoute = (route) => {
   const cardRoute = new CreateCardRoute(route);
@@ -102,21 +40,29 @@ const renderCosts = (costs) => {
   render(tripInfo, costItems.getElement(), Position.BEFOREEND)
 };
 
+const renderCardAdd = () => {
+  const cardAdd = new AddNewEvent();
+  render(tripEventsList, cardAdd.getElement(), Position.AFTERBEGIN);
+};
+
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
+
+renderRoute(card());
+renderControls(controls);
+renderFilters(filters);
+renderSorting(sorting);
+
+const cardsBoardController = new TripController(tripEventsList, cardMocks);
 
 const renderCardTypes = () => {
   if (cardMocks.length > 0) {
-    cardMocks.forEach((cardMock) => renderCards(cardMock))
+    cardsBoardController.init();
   } else {
     renderCardAdd();
   }
 };
 
 renderCardTypes();
-renderRoute(card());
-renderControls(controls);
-renderFilters(filters);
-renderSorting(sorting);
 
 const price = document.querySelectorAll(`.event__price-value`);
 const addPrice = document.querySelectorAll(`.event__offer-price`);

@@ -1,21 +1,9 @@
-import {createElement} from '../utils';
+import {AbstractComponent} from './abstract-component';
 
-export class CreateControls {
+export class CreateControls extends AbstractComponent {
   constructor(controls) {
+    super();
     this._controls = controls;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

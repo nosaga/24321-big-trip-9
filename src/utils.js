@@ -52,4 +52,5 @@ export {
   Position,
   createElement,
   render,
+  unrender
 }

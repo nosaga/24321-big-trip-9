@@ -1,21 +1,9 @@
-import {createElement} from '../utils';
+import {AbstractComponent} from './abstract-component';
 
-export class TripCost {
+export class TripCost extends AbstractComponent {
   constructor(cost) {
+    super();
     this._cost = cost;
-    this._element = null;
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 
   getTemplate() {

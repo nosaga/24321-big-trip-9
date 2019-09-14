@@ -1,18 +1,6 @@
-import {createElement} from '../utils';
+import {AbstractComponent} from './abstract-component';
 
-export class AddNewEvent {
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
+export class AddNewEvent extends AbstractComponent {
   getTemplate() {
     return `<form class="trip-events__item  event  event--edit" action="#" method="post">
       <header class="event__header">
