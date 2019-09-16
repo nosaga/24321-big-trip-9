@@ -46,13 +46,12 @@ const unrender = (element) => {
 };
 
 const getDuration = (startPoint, endPoint, startPointNext, endPointNext) => {
-  const first = endPoint - startPoint;
-  const next = endPointNext - startPointNext;
+  let first = endPoint - startPoint;
+  let next = endPointNext - startPointNext;
 
-  return first - next
+  return first - next;
 };
 
-//const sortNumbers
 
 export {
   isChecked,

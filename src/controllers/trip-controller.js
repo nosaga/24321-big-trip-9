@@ -72,8 +72,7 @@ export class TripController {
   }
 
   _onSortLinkClick(evt) {
-    evt.preventDefault();
-    if (evt.target.tagName !== `LABEL`) {
+    if (!evt.target.dataset.sortType) {
       return;
     }
 
@@ -81,16 +80,17 @@ export class TripController {
 
     switch (evt.target.dataset.sortType) {
       case `time`:
-        const sortedByTimeCards = this._cards.slice().sort((a, b) => getDuration(a.point.dateFrom, a.point.dateTo, b.point.dateFrom, b.point.dateTo));
+        const sortedByTimeCards = this._cards.slice().sort((prevCard, nextCard) => getDuration(prevCard.point.dateFrom, prevCard.point.dateTo, nextCard.point.dateFrom, nextCard.point.dateTo));
         sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
+
       case `price`:
-        const sortedByPriceCards = this._cards.slice().sort((a, b) => b.point.basePrice - a.point.basePrice);
+        const sortedByPriceCards = this._cards.slice().sort((prevCard, nextCard) => nextCard.point.basePrice - prevCard.point.basePrice);
         sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
-      case `event`:
+
+      default:
         this._cards.forEach((cardMock) => this._renderCards(cardMock));
-        break;
     }
   }
 }
