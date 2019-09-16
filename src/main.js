@@ -11,6 +11,7 @@ import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {TripCost} from './components/trip-cost';
 import {TripController} from './controllers/trip-controller';
+import {PointController} from "./controllers/point-controller";
 import {AddNewEvent} from './components/card-new';
 
 const renderRoute = (route) => {
@@ -45,10 +46,12 @@ renderControls(controls);
 renderFilters(filters);
 
 const cardsBoardController = new TripController(tripEventsList, cardMocks);
+const pointBoardController = new PointController(tripEventsList, cardMocks);
 
 const renderCardTypes = () => {
   if (cardMocks.length > 0) {
     cardsBoardController.init();
+    //pointBoardController.init();
   } else {
     renderCardAdd();
   }

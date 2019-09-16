@@ -41,28 +41,29 @@ export const card = () => ({
     type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
     offerOptions: [
       {
-        name: `Upgrade to a business class`,
-        price: Math.floor(Math.random() * 250)
+        name: `Switch to comfort class`,
+        price: Math.floor(Math.random() * 250),
+        value: `comfort`
       },
       {
         name: `Add luggage`,
-        price: 30
-      },
-      {
-        name: `Switch to comfort class`,
-        price: 100
+        price: 30,
+        value: `luggage`
       },
       {
         name: `Add meal`,
-        price: 15
+        price: 15,
+        value: `meal`
       },
       {
         name: `Choose seats`,
-        price: 5
+        price: 5,
+        value: `seats`
       },
       {
         name: `Travel by train`,
-        price: 40
+        price: 40,
+        value: `train`
       }
     ]
   }

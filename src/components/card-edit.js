@@ -127,8 +127,8 @@ export class CardEdit extends AbstractComponent {
             <div class="event__available-offers">
               ${this._point.offerOptions.map((item) => `
                 <div class="event__offer-selector">
-                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${isChecked(item.name, this._point.offers.offer) ? `checked` : ``}>
-                  <label class="event__offer-label" for="event-offer-luggage-1">
+                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer" ${isChecked(item.name, this._point.offers.offer) ? `checked` : ``}>
+                  <label class="event__offer-label" for="event-offer-${item.value}-1">
                     <span class="event__offer-title">${item.name}</span>
                     +
                     €&nbsp;<span class="event__offer-price">${item.price}</span>
