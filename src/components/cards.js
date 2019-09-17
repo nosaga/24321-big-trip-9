@@ -16,11 +16,11 @@ export class Card extends AbstractComponent {
 
         <div class="event__schedule">
           <p class="event__time">
-            <time class="event__start-time" datetime="2019-03-18T12:25">${this._point.dateFrom.getUTCHours()} : ${this._point.dateFrom.getUTCMinutes()}</time>
+            <time class="event__start-time" datetime="2019-03-18T12:25">${new Date(this._point.dateFrom).getUTCHours()} : ${new Date(this._point.dateFrom).getUTCMinutes()}</time>
             —
-            <time class="event__end-time" datetime="2019-03-18T13:35">${this._point.dateTo.getUTCHours()} : ${this._point.dateTo.getUTCMinutes()}</time>
+            <time class="event__end-time" datetime="2019-03-18T13:35">${new Date(this._point.dateTo).getUTCHours()} : ${new Date(this._point.dateTo).getUTCMinutes()}</time>
           </p>
-          <p class="event__duration">${this._point.dateTo.getHours() - this._point.dateFrom.getHours()}H ${this._point.dateFrom.getMinutes() - this._point.dateTo.getMinutes()}M</p>
+          <p class="event__duration">${new Date(this._point.dateTo).getHours() - new Date(this._point.dateFrom).getHours()}H ${new Date(this._point.dateFrom).getMinutes() - new Date(this._point.dateTo).getMinutes()}M</p>
         </div>
 
         <p class="event__price">

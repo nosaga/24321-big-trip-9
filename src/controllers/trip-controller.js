@@ -25,7 +25,7 @@ export class TripController {
     unrender(this._cardsList.getElement());
     this._cardsList.removeElement();
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
-    this._cards.forEach((cardMock) => this._renderCards(console.log(`cardMock: `, cardMock)));
+    this._cards.forEach((cardMock) => this._renderCards(cardMock));
   }
 
   _renderCards(card) {
@@ -80,10 +80,12 @@ export class TripController {
               destination: {
                 name: formData.get(`event-destination`),
               },
-              offerOptions: {
+              offerOptions: [
+                {
                 offer: new Set(formData.getAll(`event-offer`))
-              },
-              type: formData.get(`event-type`)
+                }
+              ],
+              type: formData.get(`event-type`),
             }
           };
 

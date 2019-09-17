@@ -3,7 +3,7 @@ import {cities, photos} from '../constants';
 export const card = () => ({
   point: {
     basePrice: Math.floor(Math.random() * 1000),
-    dateFrom: new Date(`2019-07-10T22:55:56.845Z`),
+    dateFrom: `2019-07-10T22:55:56.845Z`,
     dateTo: new Date(`2019-07-11T11:22:13.375Z`),
     destination: {
       description: [

@@ -94,12 +94,12 @@ export class CardEdit extends AbstractComponent {
             <label class="visually-hidden" for="event-start-time-1">
               From
             </label>
-            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._point.dateFrom.getUTCDate()}/${this._point.dateFrom.getUTCMonth()}/${this._point.dateFrom.getUTCFullYear().toString().substr(2, 2)} ${this._point.dateFrom.getUTCHours()}:${this._point.dateFrom.getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._point.dateFrom).getUTCDate()}/${new Date(this._point.dateFrom).getUTCMonth()}/${new Date(this._point.dateFrom).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._point.dateFrom).getUTCHours()}:${new Date(this._point.dateFrom).getUTCMinutes()}">
             —
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._point.dateTo.getUTCDate()}/${this._point.dateTo.getUTCMonth()}/${this._point.dateTo.getUTCFullYear().toString().substr(2, 2)} ${this._point.dateTo.getUTCHours()}:${this._point.dateTo.getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._point.dateTo).getUTCDate()}/${new Date(this._point.dateTo).getUTCMonth()}/${new Date(this._point.dateTo).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._point.dateTo).getUTCHours()}:${new Date(this._point.dateTo).getUTCMinutes()}">
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
@@ -127,7 +127,7 @@ export class CardEdit extends AbstractComponent {
             <div class="event__available-offers">
               ${this._point.offerOptions.map((item) => `
                 <div class="event__offer-selector">
-                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer" ${isChecked(item.name, this._point.offers.offer) ? `checked` : ``}>
+                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer" >
                   <label class="event__offer-label" for="event-offer-${item.value}-1">
                     <span class="event__offer-title">${item.name}</span>
                     +
