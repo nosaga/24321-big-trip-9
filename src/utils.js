@@ -46,12 +46,11 @@ const unrender = (element) => {
 };
 
 const getDuration = (startPoint, endPoint, startPointNext, endPointNext) => {
-  let first = endPoint - startPoint;
-  let next = endPointNext - startPointNext;
+  let startTripPoint = endPoint - startPoint;
+  let nextTripPoint = endPointNext - startPointNext;
 
-  return first - next;
+  return startTripPoint - nextTripPoint;
 };
-
 
 export {
   isChecked,
