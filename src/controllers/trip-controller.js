@@ -1,18 +1,24 @@
 import {TripEventsList} from '../components/trip-events-list';
+import {tripEvents} from "../constants";
 import {EventOption, replaceElement, Position, render} from '../utils';
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
+import {Sort} from '../components/sort';
+import {getDuration} from '../utils';
 
 export class TripController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
     this._cardsList = new TripEventsList();
+    this._sort = new Sort();
   }
 
   init() {
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
+    render(tripEvents, this._sort.getElement(), Position.AFTERBEGIN);
     this._cards.forEach((cardMock) => this._renderCards(cardMock));
+    this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
   }
 
   _renderCards(card) {
@@ -64,5 +70,25 @@ export class TripController {
 
     render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);
   }
-}
 
+  _onSortLinkClick(evt) {
+    if (evt.target.dataset.sortType) {
+      this._cardsList.getElement().innerHTML = ``;
+
+      switch (evt.target.dataset.sortType) {
+        case `time`:
+          const sortedByTimeCards = this._cards.slice().sort((prevCard, nextCard) => getDuration(prevCard.point.dateFrom, prevCard.point.dateTo, nextCard.point.dateFrom, nextCard.point.dateTo));
+          sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
+          break;
+
+        case `price`:
+          const sortedByPriceCards = this._cards.slice().sort((prevCard, nextCard) => nextCard.point.basePrice - prevCard.point.basePrice);
+          sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
+          break;
+
+        default:
+          this._cards.forEach((cardMock) => this._renderCards(cardMock));
+      }
+    }
+  }
+}

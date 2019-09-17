@@ -45,6 +45,13 @@ const unrender = (element) => {
   }
 };
 
+const getDuration = (startPoint, endPoint, startPointNext, endPointNext) => {
+  let startTripPoint = endPoint - startPoint;
+  let nextTripPoint = endPointNext - startPointNext;
+
+  return startTripPoint - nextTripPoint;
+};
+
 export {
   isChecked,
   EventOption,
@@ -52,5 +59,6 @@ export {
   Position,
   createElement,
   render,
-  unrender
+  unrender,
+  getDuration
 }

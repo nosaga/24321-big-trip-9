@@ -1,18 +1,16 @@
-import {tripInfo, tripControls, tripEvents, tripEventsList, CARD_COUNT} from './constants'
-import {render, Position, EventOption, replaceElement} from './utils';
+import {tripInfo, tripControls, tripEventsList, CARD_COUNT} from './constants'
+import {render, Position} from './utils';
 
 import {card} from './mocks/card';
 import {filters} from './mocks/filters';
 import {controls} from './mocks/controls';
-import {sorting} from './mocks/sorting';
 import {tripCost} from './mocks/trip-cost';
 
 import {CreateCardRoute} from './components/card-route';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
-import {CreateSorting} from './components/sorting';
 import {TripCost} from './components/trip-cost';
-import {TripController} from './controllers/cards-board';
+import {TripController} from './controllers/trip-controller';
 import {AddNewEvent} from './components/card-new';
 
 const renderRoute = (route) => {
@@ -30,11 +28,6 @@ const renderFilters = (filters) => {
   render(tripControls, filtersRoute.getElement(), Position.BEFOREEND);
 };
 
-const renderSorting = (sorting) => {
-  const sortingRoute = new CreateSorting(sorting);
-  render(tripEvents, sortingRoute.getElement(), Position.AFTERBEGIN);
-};
-
 const renderCosts = (costs) => {
   const costItems = new TripCost(costs);
   render(tripInfo, costItems.getElement(), Position.BEFOREEND)
@@ -50,7 +43,6 @@ const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 renderRoute(card());
 renderControls(controls);
 renderFilters(filters);
-renderSorting(sorting);
 
 const cardsBoardController = new TripController(tripEventsList, cardMocks);
 
