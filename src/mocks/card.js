@@ -1,7 +1,6 @@
 import {cities, photos} from '../constants';
 
 export const card = () => ({
-  point: {
     basePrice: Math.floor(Math.random() * 1000),
     dateFrom: `2019-07-10T22:55:56.845Z`,
     dateTo: new Date(`2019-07-11T11:22:13.375Z`),
@@ -30,41 +29,69 @@ export const card = () => ({
       type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
       offer: [
         {
-          name: [`Upgrade to a business class`, `Add luggage`, `Switch to comfort class`, `Add meal`, `Choose seats`][Math.floor(Math.random() * 5)],
-          price: Math.floor(Math.random() * 250)
-        }, {
-          name: [`Upgrade to a business class`, `Add luggage`, `Switch to comfort class`, `Add meal`, `Choose seats`][Math.floor(Math.random() * 5)],
-          price: Math.floor(Math.random() * 250)
+          name: `Switch to comfort class`,
+          price: Math.floor(Math.random() * 250),
+          value: `comfort`,
+          isChecked: Boolean(Math.round(Math.random())),
+        },
+        {
+          name: `Add luggage`,
+          price: 30,
+          value: `luggage`,
+          isChecked: false,
+        },
+        {
+          name: `Add meal`,
+          price: 15,
+          value: `meal`,
+          isChecked: false,
+        },
+        {
+          name: `Choose seats`,
+          price: 5,
+          value: `seats`,
+          isChecked: Boolean(Math.round(Math.random())),
+        },
+        {
+          name: `Travel by train`,
+          price: 40,
+          value: `train`,
+          isChecked: false,
         }
       ]
     },
     type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
-    offerOptions: [
-      {
-        name: `Switch to comfort class`,
-        price: Math.floor(Math.random() * 250),
-        value: `comfort`
-      },
-      {
-        name: `Add luggage`,
-        price: 30,
-        value: `luggage`
-      },
-      {
-        name: `Add meal`,
-        price: 15,
-        value: `meal`
-      },
-      {
-        name: `Choose seats`,
-        price: 5,
-        value: `seats`
-      },
-      {
-        name: `Travel by train`,
-        price: 40,
-        value: `train`
-      }
-    ]
-  }
+
+    // offerOptions: [
+    //   {
+    //     name: `Switch to comfort class`,
+    //     price: Math.floor(Math.random() * 250),
+    //     value: `comfort`,
+    //     isChecked: Boolean(Math.round(Math.random())),
+    //   },
+    //   {
+    //     name: `Add luggage`,
+    //     price: 30,
+    //     value: `luggage`,
+    //     isChecked: Boolean(Math.round(Math.random())),
+    //   },
+    //   {
+    //     name: `Add meal`,
+    //     price: 15,
+    //     value: `meal`,
+    //     isChecked: false,
+    //   },
+    //   {
+    //     name: `Choose seats`,
+    //     price: 5,
+    //     value: `seats`,
+    //     isChecked: false,
+    //   },
+    //   {
+    //     name: `Travel by train`,
+    //     price: 40,
+    //     value: `train`,
+    //     isChecked: false,
+    //   }
+    // ]
 });

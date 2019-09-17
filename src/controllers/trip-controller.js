@@ -73,20 +73,18 @@ export class TripController {
         if (evt.target === form) {
           const formData = new FormData(this._cardsList.getElement().querySelector(`.event--edit`));
           const entry = {
-            point: {
-              basePrice: formData.get(`event-price`),
-              dateFrom: formData.get(`event-start-time`),
-              dateTo: formData.get(`event-end-time`),
-              destination: {
-                name: formData.get(`event-destination`),
-              },
-              offerOptions: [
-                {
-                offer: new Set(formData.getAll(`event-offer`))
-                }
-              ],
-              type: formData.get(`event-type`),
-            }
+            basePrice: formData.get(`event-price`),
+            dateFrom: formData.get(`event-start-time`),
+            dateTo: formData.get(`event-end-time`),
+            destination: {
+              name: formData.get(`event-destination`),
+            },
+            // offers: [
+            //   {
+            //     offer: formData.getAll(`event-offer`)
+            //   }
+            // ],
+            type: formData.get(`event-type`),
           };
 
           //this._cards[this._cards.id === card] = entry;
@@ -110,11 +108,11 @@ export class TripController {
 
     switch (evt.target.dataset.sortType) {
       case `time`:
-        const sortedByTimeCards = this._cards.slice().sort((a, b) => getDuration(a.point.dateFrom, a.point.dateTo, b.point.dateFrom, b.point.dateTo));
+        const sortedByTimeCards = this._cards.slice().sort((a, b) => getDuration(a.dateFrom, a.dateTo, b.dateFrom, b.dateTo));
         sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `price`:
-        const sortedByPriceCards = this._cards.slice().sort((a, b) => b.point.basePrice - a.point.basePrice);
+        const sortedByPriceCards = this._cards.slice().sort((a, b) => b.basePrice - a.basePrice);
         sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
         break;
       case `event`:

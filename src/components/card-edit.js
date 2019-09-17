@@ -2,9 +2,14 @@ import {AbstractComponent} from './abstract-component';
 import {isChecked} from '../utils';
 
 export class CardEdit extends AbstractComponent {
-  constructor({point}) {
+  constructor({type, destination, dateFrom, dateTo, basePrice, offers}) {
     super();
-    this._point = point;
+    this._type = type;
+    this._destination = destination;
+    this._dateFrom = dateFrom;
+    this._dateTo = dateTo;
+    this._offers = offers;
+    this._basePrice = basePrice;
   }
 
   getTemplate() {
@@ -14,7 +19,7 @@ export class CardEdit extends AbstractComponent {
           <div class="event__type-wrapper">
             <label class="event__type  event__type-btn" for="event-type-toggle-1">
               <span class="visually-hidden">Choose event type</span>
-              <img class="event__type-icon" width="17" height="17" src="img/icons/${this._point.type.toLowerCase()}.png" alt="Event type icon">
+              <img class="event__type-icon" width="17" height="17" src="img/icons/${this._type.toLowerCase()}.png" alt="Event type icon">
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
@@ -81,9 +86,9 @@ export class CardEdit extends AbstractComponent {
 
           <div class="event__field-group  event__field-group--destination">
             <label class="event__label  event__type-output" for="event-destination-1">
-              ${this._point.type}
+              ${this._type}
             </label>
-            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._point.destination.name}" list="destination-list-1">
+            <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${this._destination.name}" list="destination-list-1">
             <datalist id="destination-list-1">
               <option value="Amsterdam"></option>
               <option value="Geneva"></option>
@@ -94,19 +99,19 @@ export class CardEdit extends AbstractComponent {
             <label class="visually-hidden" for="event-start-time-1">
               From
             </label>
-            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._point.dateFrom).getUTCDate()}/${new Date(this._point.dateFrom).getUTCMonth()}/${new Date(this._point.dateFrom).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._point.dateFrom).getUTCHours()}:${new Date(this._point.dateFrom).getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._dateFrom).getUTCDate()}/${new Date(this._dateFrom).getUTCMonth()}/${new Date(this._dateFrom).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._dateFrom).getUTCHours()}:${new Date(this._dateFrom).getUTCMinutes()}">
             —
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._point.dateTo).getUTCDate()}/${new Date(this._point.dateTo).getUTCMonth()}/${new Date(this._point.dateTo).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._point.dateTo).getUTCHours()}:${new Date(this._point.dateTo).getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dateTo).getUTCDate()}/${new Date(this._dateTo).getUTCMonth()}/${new Date(this._dateTo).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._dateTo).getUTCHours()}:${new Date(this._dateTo).getUTCMinutes()}">
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
               <span class="visually-hidden">Price</span>
               €
             </label>
-            <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._point.basePrice}">
+            <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${this._basePrice}">
           </div>
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Delete</button>
@@ -124,29 +129,12 @@ export class CardEdit extends AbstractComponent {
         <section class="event__details">
           <section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-            <div class="event__available-offers">
-              ${this._point.offerOptions.map((item) => `
-                <div class="event__offer-selector">
-                  <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer" >
-                  <label class="event__offer-label" for="event-offer-${item.value}-1">
-                    <span class="event__offer-title">${item.name}</span>
-                    +
-                    €&nbsp;<span class="event__offer-price">${item.price}</span>
-                  </label>
-                </div>
-              `).join(``)}
-            </div>
+            
           </section>
           <section class="event__section  event__section--destination">
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-            <p class="event__destination-description">${this._point.destination.description}</p>
-            <div class="event__photos-container">
-              <div class="event__photos-tape">
-                ${this._point.destination.photos[0].src.map((photo) => `
-                  <img class="event__photo" src="${photo} + ${Math.random()}" alt="Event photo">
-                `).join(``)}
-              </div>
-            </div>
+            <p class="event__destination-description">${this._destination.description}</p>
+            
         </section>
       </section>
     </form>
