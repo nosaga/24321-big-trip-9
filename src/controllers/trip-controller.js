@@ -1,9 +1,9 @@
 import {TripEventsList} from '../components/trip-events-list';
-import {tripEvents} from "../constants";
+import {tripEvents} from '../constants';
 import {Position, render} from '../utils';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
-import {PointController} from "./point-controller";
+import {PointController} from './point-controller';
 
 export class TripController {
   constructor(container, cards) {

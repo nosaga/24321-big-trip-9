@@ -2,6 +2,7 @@ const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
+const tripDays = document.querySelector(`.trip-days`);
 
 const CARD_COUNT = 3;
 
@@ -14,6 +15,7 @@ export {
   tripControls,
   tripEvents,
   tripEventsList,
+  tripDays,
   CARD_COUNT,
   cities,
   monthNames,

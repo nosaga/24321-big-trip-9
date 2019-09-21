@@ -1,6 +1,6 @@
-import {Card} from "../components/cards";
-import {CardEdit} from "../components/card-edit";
-import {EventOption, Position, render, replaceElement} from "../utils";
+import {Card} from '../components/cards';
+import {CardEdit} from '../components/card-edit';
+import {EventOption, Position, render, replaceElement} from '../utils';
 
 export class PointController {
   constructor(container, data, onDataChange, onChangeView) {
