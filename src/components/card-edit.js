@@ -129,15 +129,31 @@ export class CardEdit extends AbstractComponent {
         <section class="event__details">
           <section class="event__section  event__section--offers">
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
-            
+            <div class="event__available-offers">
+              ${this._offers.offer.map((item) => `<div class="event__offer-selector">
+                <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer-${item}" ${item.isChecked ? `checked` : ``}>
+                <label class="event__offer-label" for="event-offer-${item.value}-1">
+                  <span class="event__offer-title">${item.name}</span>
+                  +
+                  €&nbsp;<span class="event__offer-price">${item.price}</span>
+                </label>
+                </div>
+              `).join(``)}
+            </div>
           </section>
           <section class="event__section  event__section--destination">
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
             <p class="event__destination-description">${this._destination.description}</p>
-            
+            <div class="event__photos-container">
+              <div class="event__photos-tape">
+                ${this._destination.photos[0].src.map((photo) => `
+                  <img class="event__photo" src="${photo}+ ${Math.random()}" alt="Event photo">
+                `).join(``)}
+                </div>
+              </div>
+          </section>
         </section>
-      </section>
-    </form>
-  </li>`;
+      </form>
+    </li>`;
   }
 }

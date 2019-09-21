@@ -14,7 +14,7 @@ export class Card extends AbstractComponent {
   }
 
   getTemplate() {
-
+    const offersItem = this._offers.offer.filter((offer) => offer.isChecked === true);
     return `<li class="trip-events__item">
       <div class="event">
         <div class="event__type">
@@ -36,9 +36,14 @@ export class Card extends AbstractComponent {
         </p>
 
         <h4 class="visually-hidden">Offers:</h4>
-        
-
-        <button class="event__rollup-btn data-card-id=${this._id}" type="button">
+        <ul class="event__selected-offers"> ${offersItem.map((offer) => `<li class="event__offer">
+            <span class="event__offer-title">${offer.name}</span>
+              +
+              €&nbsp;<span class="event__offer-price">${offer.price}
+            </span>
+          </li>`).join(``)}
+          </ul>
+          <button class="event__rollup-btn data-card-id=${this._id}" type="button">
           <span class="visually-hidden">Open event</span>
         </button>
       </div>

@@ -61,37 +61,4 @@ export const card = () => ({
       ]
     },
     type: [`Taxi`, `Bus`, `Train`, `Flight`, `Check-in`, `Sightseeing`][Math.floor(Math.random() * 6)],
-
-    // offerOptions: [
-    //   {
-    //     name: `Switch to comfort class`,
-    //     price: Math.floor(Math.random() * 250),
-    //     value: `comfort`,
-    //     isChecked: Boolean(Math.round(Math.random())),
-    //   },
-    //   {
-    //     name: `Add luggage`,
-    //     price: 30,
-    //     value: `luggage`,
-    //     isChecked: Boolean(Math.round(Math.random())),
-    //   },
-    //   {
-    //     name: `Add meal`,
-    //     price: 15,
-    //     value: `meal`,
-    //     isChecked: false,
-    //   },
-    //   {
-    //     name: `Choose seats`,
-    //     price: 5,
-    //     value: `seats`,
-    //     isChecked: false,
-    //   },
-    //   {
-    //     name: `Travel by train`,
-    //     price: 40,
-    //     value: `train`,
-    //     isChecked: false,
-    //   }
-    // ]
 });

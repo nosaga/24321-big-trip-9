@@ -46,7 +46,7 @@ renderControls(controls);
 renderFilters(filters);
 
 const cardsBoardController = new TripController(tripEventsList, cardMocks);
-const pointBoardController = new PointController(tripEventsList, cardMocks);
+//const pointBoardController = new PointController(tripEventsList, cardMocks);
 
 const renderCardTypes = () => {
   if (cardMocks.length > 0) {

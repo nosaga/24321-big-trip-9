@@ -5,6 +5,7 @@ import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
+import {PointController} from "./point-controller";
 
 export class TripController {
   constructor(container, cards) {
@@ -12,12 +13,15 @@ export class TripController {
     this._cards = cards;
     this._cardsList = new TripEventsList();
     this._sort = new Sort();
+    this._subscriptions = [];
+    this._onChangeView = this._onChangeView.bind(this);
+    this._onDataChange = this._onDataChange.bind(this);
   }
 
   init() {
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
     render(tripEvents, this._sort.getElement(), Position.AFTERBEGIN);
-    this._cards.forEach((cardMock) => this._renderCards(cardMock));
+    this._cards.forEach((cardMock) => this._renderCards( cardMock));
     this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
   }
 
@@ -29,73 +33,17 @@ export class TripController {
   }
 
   _renderCards(card) {
-    const cardComponent = new Card(card);
-    const cardEditComponent = new CardEdit(card);
+    const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
+    this._subscriptions.push(CardController.setDefaultView.bind(CardController))
+  }
 
-    const destinationInput = cardEditComponent.getElement().querySelector(`.event__input--destination`);
-    const rollupBtnOpen = cardComponent.getElement().querySelector(`.event__rollup-btn`);
-    const rollupBtnClose = cardEditComponent.getElement().querySelector(`.event__rollup-btn`);
-    const form = cardEditComponent.getElement().querySelector(`form`);
+  _onChangeView() {
+    this._subscriptions.forEach((it) => it());
+  }
+  _onDataChange(newData, oldData) {
+    this._cards[this._cards.findIndex((it) => it === oldData)] = newData;
 
-    const onEscKeyDown = (evt) => {
-      if (evt.key === `Escape` || evt.key === `Esc`) {
-        replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
-
-      }
-    };
-
-    this._cardsList.getElement()
-      .addEventListener(`click`, (evt) => {
-        if (evt.target === rollupBtnOpen) {
-          replaceElement(this._cardsList.getElement(), cardEditComponent, cardComponent, EventOption.addEvent, onEscKeyDown);
-        } else if (evt.target === rollupBtnClose) {
-          replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.addEvent, onEscKeyDown);
-        }
-      });
-
-    this._cardsList.getElement()
-      .addEventListener(`focus`, (evt) => {
-        if (evt.target === destinationInput) {
-          document.removeEventListener(`keydown`, onEscKeyDown);
-        }
-      });
-
-    this._cardsList.getElement()
-      .addEventListener(`blur`, (evt) => {
-        if (evt.target === destinationInput) {
-          document.addEventListener(`keydown`, onEscKeyDown);
-        }
-      });
-
-    this._cardsList.getElement()
-      .addEventListener(`submit`, (evt) => {
-        evt.preventDefault();
-        if (evt.target === form) {
-          const formData = new FormData(this._cardsList.getElement().querySelector(`.event--edit`));
-          const entry = {
-            basePrice: formData.get(`event-price`),
-            dateFrom: formData.get(`event-start-time`),
-            dateTo: formData.get(`event-end-time`),
-            destination: {
-              name: formData.get(`event-destination`),
-            },
-            // offers: [
-            //   {
-            //     offer: formData.getAll(`event-offer`)
-            //   }
-            // ],
-            type: formData.get(`event-type`),
-          };
-
-          //this._cards[this._cards.id === card] = entry;
-          this._cards[this._cards.findIndex((it) => it === card)] = entry;
-
-          this._renderBoard(this._cards);
-          //replaceElement(this._cardsList.getElement(), cardComponent, cardEditComponent, EventOption.removeEvent, onEscKeyDown);
-        }
-      });
-
-    render(this._cardsList.getElement(), cardComponent.getElement(), Position.BEFOREEND);
+    this._renderBoard(this._cards);
   }
 
   _onSortLinkClick(evt) {
