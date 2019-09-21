@@ -1,5 +1,4 @@
 import {AbstractComponent} from './abstract-component';
-import {isChecked} from '../utils';
 
 export class CardEdit extends AbstractComponent {
   constructor({type, destination, dateFrom, dateTo, basePrice, offers}) {
@@ -99,12 +98,12 @@ export class CardEdit extends AbstractComponent {
             <label class="visually-hidden" for="event-start-time-1">
               From
             </label>
-            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${new Date(this._dateFrom).getUTCDate()}/${new Date(this._dateFrom).getUTCMonth()}/${new Date(this._dateFrom).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._dateFrom).getUTCHours()}:${new Date(this._dateFrom).getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._dateFrom.getUTCDate()}/${this._dateFrom.getUTCMonth()}/${this._dateFrom.getUTCFullYear().toString().substr(2, 2)} ${this._dateFrom.getUTCHours()}:${this._dateFrom.getUTCMinutes()}">
             —
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dateTo).getUTCDate()}/${new Date(this._dateTo).getUTCMonth()}/${new Date(this._dateTo).getUTCFullYear().toString().substr(2, 2)} ${new Date(this._dateTo).getUTCHours()}:${new Date(this._dateTo).getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dateTo.getUTCDate()}/${this._dateTo.getUTCMonth()}/${this._dateTo.getUTCFullYear().toString().substr(2, 2)} ${this._dateTo.getUTCHours()}:${this._dateTo.getUTCMinutes()}">
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">

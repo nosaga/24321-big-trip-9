@@ -1,8 +1,6 @@
 import {TripEventsList} from '../components/trip-events-list';
 import {tripEvents} from "../constants";
-import {EventOption, replaceElement, Position, render} from '../utils';
-import {Card} from '../components/cards';
-import {CardEdit} from '../components/card-edit';
+import {Position, render} from '../utils';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
 import {PointController} from "./point-controller";
@@ -21,7 +19,7 @@ export class TripController {
   init() {
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
     render(tripEvents, this._sort.getElement(), Position.AFTERBEGIN);
-    this._cards.forEach((cardMock) => this._renderCards( cardMock));
+    this._cards.forEach((cardMock) => this._renderCards(cardMock));
     this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
   }
 
@@ -29,17 +27,18 @@ export class TripController {
     unrender(this._cardsList.getElement());
     this._cardsList.removeElement();
     render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
-    this._cards.forEach((cardMock) => this._renderCards(cardMock));
+    cards.forEach((cardMock) => this._renderCards(cardMock));
   }
 
   _renderCards(card) {
     const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
-    this._subscriptions.push(CardController.setDefaultView.bind(CardController))
+    this._subscriptions.push(CardController.setDefaultView.bind(CardController));
   }
 
   _onChangeView() {
     this._subscriptions.forEach((it) => it());
   }
+
   _onDataChange(newData, oldData) {
     this._cards[this._cards.findIndex((it) => it === oldData)] = newData;
 

@@ -59,8 +59,8 @@ export class PointController {
           const formData = new FormData(this._container.getElement().querySelector(`.event--edit`));
           const entry = {
             basePrice: formData.get(`event-price`),
-            dateFrom: formData.get(`event-start-time`),
-            dateTo: formData.get(`event-end-time`),
+            dateFrom: new Date(formData.get(`event-start-time`)),
+            dateTo: new Date(formData.get(`event-end-time`)),
             destination: {
               name: formData.get(`event-destination`),
               description: this._cardEdit._destination.description,
@@ -72,8 +72,6 @@ export class PointController {
             type: formData.get(`event-type`),
 
           };
-
-          console.log(entry);
           this._onDataChange(entry, this._data);
         }
       });

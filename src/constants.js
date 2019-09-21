@@ -2,6 +2,7 @@ const tripInfo = document.querySelector(`.trip-main__trip-info`);
 const tripControls = document.querySelector(`.trip-main__trip-controls`);
 const tripEvents = document.querySelector(`.trip-events`);
 const tripEventsList = document.querySelector(`.trip-events__list`);
+
 const CARD_COUNT = 3;
 
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
