@@ -46,25 +46,23 @@ export class TripController {
   }
 
   _onSortLinkClick(evt) {
-    evt.preventDefault();
-    if (evt.target.tagName !== `LABEL`) {
-      return;
-    }
+    if (evt.target.dataset.sortType) {
+      this._cardsList.getElement().innerHTML = ``;
 
-    this._cardsList.getElement().innerHTML = ``;
+      switch (evt.target.dataset.sortType) {
+        case `time`:
+          const sortedByTimeCards = this._cards.slice().sort((prevCard, nextCard) => getDuration(prevCard.point.dateFrom, prevCard.point.dateTo, nextCard.point.dateFrom, nextCard.point.dateTo));
+          sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
+          break;
 
-    switch (evt.target.dataset.sortType) {
-      case `time`:
-        const sortedByTimeCards = this._cards.slice().sort((a, b) => getDuration(a.dateFrom, a.dateTo, b.dateFrom, b.dateTo));
-        sortedByTimeCards.forEach((cardMock) => this._renderCards(cardMock));
-        break;
-      case `price`:
-        const sortedByPriceCards = this._cards.slice().sort((a, b) => b.basePrice - a.basePrice);
-        sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
-        break;
-      case `event`:
-        this._cards.forEach((cardMock) => this._renderCards(cardMock));
-        break;
+        case `price`:
+          const sortedByPriceCards = this._cards.slice().sort((prevCard, nextCard) => nextCard.point.basePrice - prevCard.point.basePrice);
+          sortedByPriceCards.forEach((cardMock) => this._renderCards(cardMock));
+          break;
+
+        default:
+          this._cards.forEach((cardMock) => this._renderCards(cardMock));
+      }
     }
   }
 }
