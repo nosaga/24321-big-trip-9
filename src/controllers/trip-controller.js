@@ -4,12 +4,14 @@ import {Position, render} from '../utils';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
 import {PointController} from './point-controller';
+import {Day} from "../components/day";
 
 export class TripController {
   constructor(container, cards) {
     this._container = container;
     this._cards = cards;
     this._cardsList = new TripEventsList();
+    this._day = new Day(cards);
     this._sort = new Sort();
     this._subscriptions = [];
     this._onChangeView = this._onChangeView.bind(this);
@@ -31,6 +33,7 @@ export class TripController {
   }
 
   _renderCards(card) {
+    //const CardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card, this._onDataChange, this._onChangeView);
     const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
     this._subscriptions.push(CardController.setDefaultView.bind(CardController));
   }

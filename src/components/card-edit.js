@@ -9,6 +9,7 @@ export class CardEdit extends AbstractComponent {
     this._dateTo = dateTo;
     this._offers = offers;
     this._basePrice = basePrice;
+    this._subscribeOnEvents();
   }
 
   getTemplate() {
@@ -98,12 +99,16 @@ export class CardEdit extends AbstractComponent {
             <label class="visually-hidden" for="event-start-time-1">
               From
             </label>
-            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${this._dateFrom.getUTCDate()}/${this._dateFrom.getUTCMonth()}/${this._dateFrom.getUTCFullYear().toString().substr(2, 2)} ${this._dateFrom.getUTCHours()}:${this._dateFrom.getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-start-time-1" 
+              type="text" 
+              name="event-start-time" 
+              value="${new Date(this._dateFrom).getDate()}/${new Date(this._dateFrom).getMonth()}/${new Date(this._dateFrom).getFullYear().toString().substr(2, 2)} ${new Date(this._dateFrom).getHours()}:${new Date(this._dateFrom).getMinutes()}"
+            >
             —
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dateTo.getUTCDate()}/${this._dateTo.getUTCMonth()}/${this._dateTo.getUTCFullYear().toString().substr(2, 2)} ${this._dateTo.getUTCHours()}:${this._dateTo.getUTCMinutes()}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dateTo).getDate()}/${new Date(this._dateTo).getMonth()}/${new Date(this._dateTo).getFullYear().toString().substr(2, 2)} ${new Date(this._dateTo).getHours()}:${new Date(this._dateTo).getMinutes()}">
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
@@ -130,7 +135,7 @@ export class CardEdit extends AbstractComponent {
             <h3 class="event__section-title  event__section-title--offers">Offers</h3>
             <div class="event__available-offers">
               ${this._offers.offer.map((item) => `<div class="event__offer-selector">
-                <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer-${item}" ${item.isChecked ? `checked` : ``}>
+                <input class="event__offer-checkbox  visually-hidden" id="event-offer-${item.value}-1" type="checkbox" name="event-offer-${item.value}" ${item.isChecked ? `checked` : ``}>
                 <label class="event__offer-label" for="event-offer-${item.value}-1">
                   <span class="event__offer-title">${item.name}</span>
                   +
@@ -142,7 +147,7 @@ export class CardEdit extends AbstractComponent {
           </section>
           <section class="event__section  event__section--destination">
             <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-            <p class="event__destination-description">${this._destination.description}</p>
+            <p class="event__destination-description">${this._destination.description[Math.floor(Math.random() * 3)]}</p>
             <div class="event__photos-container">
               <div class="event__photos-tape">
                 ${this._destination.photos[0].src.map((photo) => `
@@ -154,5 +159,19 @@ export class CardEdit extends AbstractComponent {
         </section>
       </form>
     </li>`;
+  }
+
+  _subscribeOnEvents() {
+    this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, () => {
+      this.getElement().querySelector(`.event__destination-description`)
+        .innerHTML = this._destination.description[Math.floor(Math.random() * 3)];
+    });
+
+    this.getElement().querySelectorAll(`.event__type-input`).forEach((it) => it.addEventListener(`click`, (evt) => {
+      const target = evt.target;
+
+      this.getElement().querySelector(`.event__type-icon`).src = `img/icons/` + target.value + `.png`;
+      this.getElement().querySelector(`.event__type-output`).innerHTML = target.value.charAt(0).toUpperCase() + target.value.slice(1);
+    }));
   }
 }

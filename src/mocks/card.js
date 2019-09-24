@@ -15,7 +15,7 @@ export const card = () => ({
       `Aliquam erat volutpat.`,
       `unc fermentum tortor ac porta dapibus.`,
       `In rutrum ac purus sit amet tempus.`
-    ][Math.floor(Math.random() * 3)],
+    ],
     name: cities[Math.floor(Math.random() * cities.length)],
     photos: [
       {

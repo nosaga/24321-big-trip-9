@@ -15,7 +15,6 @@ export class PointController {
   }
 
   create() {
-
     const destinationInput = this._cardEdit.getElement().querySelector(`.event__input--destination`);
     const rollupBtnOpen = this._cardView.getElement().querySelector(`.event__rollup-btn`);
     const rollupBtnClose = this._cardEdit.getElement().querySelector(`.event__rollup-btn`);
@@ -23,10 +22,10 @@ export class PointController {
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
-        replaceElement(this._container.getElement(), this._cardView, this._cardEdit, EventOption.removeEvent, onEscKeyDown);
-
+        replaceElement(this._container, this._cardView, this._cardEdit, EventOption.removeEvent, onEscKeyDown);
       }
     };
+
 
     this._container.getElement()
       .addEventListener(`click`, (evt) => {
@@ -56,27 +55,27 @@ export class PointController {
       .addEventListener(`submit`, (evt) => {
         evt.preventDefault();
         if (evt.target === form) {
+          const {description, photos} = this._cardEdit._destination;
           const formData = new FormData(this._container.getElement().querySelector(`.event--edit`));
+          console.log(`formDate: `, formData);
           const entry = {
             basePrice: formData.get(`event-price`),
-            dateFrom: new Date(formData.get(`event-start-time`)),
-            dateTo: new Date(formData.get(`event-end-time`)),
+            dateFrom: new Date(formData.get(`event-start-time`)).toISOString(),
+            dateTo: new Date(formData.get(`event-end-time`)).toISOString(),
             destination: {
               name: formData.get(`event-destination`),
-              description: this._cardEdit._destination.description,
-              photos: this._cardEdit._destination.photos
+              description,
+              photos,
             },
             offers: {
               offer: formData.getAll(`checkbox`)
             },
             type: formData.get(`event-type`),
-
           };
+          console.log(entry);
           this._onDataChange(entry, this._data);
         }
       });
-
-
     render(this._container.getElement(), this._cardView.getElement(), Position.BEFOREEND);
   }
 
@@ -85,5 +84,4 @@ export class PointController {
       this._container.getElement().replaceChild(this._cardView.getElement(), this._cardEdit.getElement());
     }
   }
-
 }

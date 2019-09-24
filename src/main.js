@@ -1,4 +1,4 @@
-import {tripInfo, tripControls, tripEventsList, CARD_COUNT} from './constants'
+import {tripInfo, tripControls, tripEventsList, CARD_COUNT, tripDays} from './constants'
 import {render, Position} from './utils';
 
 import {card} from './mocks/card';
@@ -12,6 +12,7 @@ import {CreateCardRouteEndDate} from './components/card-route-end-date';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {TripCost} from './components/trip-cost';
+import {Day} from "./components/day";
 
 import {TripController} from './controllers/trip-controller';
 import {AddNewEvent} from './components/card-new';
@@ -56,6 +57,12 @@ const renderCardAdd = () => {
   render(tripEventsList, cardAdd.getElement(), Position.AFTERBEGIN);
 };
 
+const renderTripDays = (days) => {
+  const startDate = days[0];
+  const daysAll = new Day(startDate);
+  render(tripDays, daysAll.getElement(), Position.AFTERBEGIN)
+};
+
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
 renderRoute(cardMocks);
@@ -63,6 +70,7 @@ renderRouteEndDate(cardMocks);
 renderRouteEndPoint(cardMocks);
 renderControls(controls);
 renderFilters(filters);
+renderTripDays(cardMocks);
 
 const cardsBoardController = new TripController(tripEventsList, cardMocks);
 
