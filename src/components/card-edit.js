@@ -99,16 +99,16 @@ export class CardEdit extends AbstractComponent {
             <label class="visually-hidden" for="event-start-time-1">
               From
             </label>
-            (<input class="event__input  event__input--time" id="event-start-time-1" 
+            <input class="event__input  event__input--time" id="event-start-time-1" 
               type="text" 
               name="event-start-time" 
-              value="${new Date(this._dateFrom).getDate()}/${new Date(this._dateFrom).getMonth()}/${new Date(this._dateFrom).getFullYear().toString().substr(2, 2)} ${new Date(this._dateFrom).getHours()}:${new Date(this._dateFrom).getMinutes()}"
-            >)
+              value="${this._dateFrom}"
+            >
             —
             <label class="visually-hidden" for="event-end-time-1">
               To
             </label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${new Date(this._dateTo).getDate()}/${new Date(this._dateTo).getMonth()}/${new Date(this._dateTo).getFullYear().toString().substr(2, 2)} ${new Date(this._dateTo).getHours()}:${new Date(this._dateTo).getMinutes()}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${this._dateTo}}">
           </div>
           <div class="event__field-group  event__field-group--price">
             <label class="event__label" for="event-price-1">
