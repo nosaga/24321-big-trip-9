@@ -61,27 +61,27 @@ export class PointController {
         if (evt.target === form) {
           const {description, photos} = this._cardEdit._destination;
           const formData = new FormData(this._container.querySelector(`.event--edit`));
-
+          const offersSelected = this._cardEdit._offers.offer;
 
           const entry = {
             basePrice: formData.get(`event-price`),
-            dateFrom: new Date(formData.get(`event-start-time`)).toISOString(),
-            dateTo: new Date(formData.get(`event-end-time`)).toISOString(),
+            dateFrom: formData.get(`event-start-time`),
+            dateTo: formData.get(`event-end-time`),
             destination: {
               name: formData.get(`event-destination`),
               description,
               photos,
             },
             offers: {
-              offer:[
-                {
-                  name: offers.map((offer) => formData.get(offer))
-                }
-              ]
+              offer: offersSelected.map((offer) => {
+                return {
+                  ...offer,
+                  isChecked: !!formData.get(`event-offer-${offer.value}`)
+                };
+              })
             },
             type: formData.get(`event-type`),
           };
-          console.log(entry);
           this._onDataChange(entry, this._data);
         }
       });

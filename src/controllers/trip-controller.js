@@ -34,7 +34,6 @@ export class TripController {
 
   _renderCards(card) {
     const CardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card, this._onDataChange, this._onChangeView);
-    //const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
     this._subscriptions.push(CardController.setDefaultView.bind(CardController));
   }
 
