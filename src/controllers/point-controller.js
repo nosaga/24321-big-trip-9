@@ -3,6 +3,10 @@ import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
 import {offersSelect} from "../constants";
 
+import flatpickr from 'flatpickr';
+import 'flatpickr/dist/flatpickr.min.css';
+import 'flatpickr/dist/themes/light.css';
+
 export class PointController {
   constructor(container, data, onDataChange, onChangeView) {
     this._container = container;
@@ -20,6 +24,13 @@ export class PointController {
     const rollupBtnOpen = this._cardView.getElement().querySelector(`.event__rollup-btn`);
     const rollupBtnClose = this._cardEdit.getElement().querySelector(`.event__rollup-btn`);
     const form = this._cardEdit.getElement().querySelector(`form`);
+
+    flatpickr(this._cardEdit.getElement().querySelectorAll(`.event__input--time`), {
+      altInput: true,
+      allowInput: true,
+      defaultDate: this._data.dateFrom,
+      dateFormat: 'd.m.Y H:i'
+    });
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
