@@ -9,6 +9,13 @@ const CARD_COUNT = 3;
 const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
 const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
 const photos = new Array(5).fill(``);
+const offersSelect = {
+  [`event-offer-comfort`]: `Switch to comfort class`,
+  [`event-offer-luggage`]: `Add luggage`,
+  [`event-offer-meal`]: `Add meal`,
+  [`event-offer-seats`]: `Choose seats`,
+  [`event-offer-train`]: `Travel by train`
+}
 
 export {
   tripInfo,
@@ -20,4 +27,5 @@ export {
   cities,
   monthNames,
   photos,
+  offersSelect
 };

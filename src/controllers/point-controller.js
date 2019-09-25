@@ -1,6 +1,7 @@
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
+import {offersSelect} from "../constants";
 
 export class PointController {
   constructor(container, data, onDataChange, onChangeView) {
@@ -26,38 +27,42 @@ export class PointController {
       }
     };
 
+    const offersAll = this._cardEdit.getElement().querySelectorAll(`.event__offer-checkbox`);
+    const offers = [];
+    offersAll.forEach((offer) => offers.push(offer.name));
 
-    this._container.getElement()
+    this._container
       .addEventListener(`click`, (evt) => {
         if (evt.target === rollupBtnOpen) {
           this._onChangeView();
-          replaceElement(this._container.getElement(), this._cardEdit, this._cardView, EventOption.addEvent, onEscKeyDown);
+          replaceElement(this._container, this._cardEdit, this._cardView, EventOption.addEvent, onEscKeyDown);
         } else if (evt.target === rollupBtnClose) {
-          replaceElement(this._container.getElement(), this._cardView, this._cardEdit, EventOption.addEvent, onEscKeyDown);
+          replaceElement(this._container, this._cardView, this._cardEdit, EventOption.addEvent, onEscKeyDown);
         }
       });
 
-    this._container.getElement()
+    this._container
       .addEventListener(`focus`, (evt) => {
         if (evt.target === destinationInput) {
           document.removeEventListener(`keydown`, onEscKeyDown);
         }
       });
 
-    this._container.getElement()
+    this._container
       .addEventListener(`blur`, (evt) => {
         if (evt.target === destinationInput) {
           document.addEventListener(`keydown`, onEscKeyDown);
         }
       });
 
-    this._container.getElement()
+    this._container
       .addEventListener(`submit`, (evt) => {
         evt.preventDefault();
         if (evt.target === form) {
           const {description, photos} = this._cardEdit._destination;
-          const formData = new FormData(this._container.getElement().querySelector(`.event--edit`));
-          console.log(`formDate: `, formData);
+          const formData = new FormData(this._container.querySelector(`.event--edit`));
+
+
           const entry = {
             basePrice: formData.get(`event-price`),
             dateFrom: new Date(formData.get(`event-start-time`)).toISOString(),
@@ -68,7 +73,11 @@ export class PointController {
               photos,
             },
             offers: {
-              offer: formData.getAll(`checkbox`)
+              offer:[
+                {
+                  name: offers.map((offer) => formData.get(offer))
+                }
+              ]
             },
             type: formData.get(`event-type`),
           };
@@ -76,12 +85,12 @@ export class PointController {
           this._onDataChange(entry, this._data);
         }
       });
-    render(this._container.getElement(), this._cardView.getElement(), Position.BEFOREEND);
+    render(this._container, this._cardView.getElement(), Position.BEFOREEND);
   }
 
   setDefaultView() {
-    if (this._container.getElement().contains(this._cardEdit.getElement())) {
-      this._container.getElement().replaceChild(this._cardView.getElement(), this._cardEdit.getElement());
+    if (this._container.contains(this._cardEdit.getElement())) {
+      this._container.replaceChild(this._cardView.getElement(), this._cardEdit.getElement());
     }
   }
 }

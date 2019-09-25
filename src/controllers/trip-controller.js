@@ -11,7 +11,7 @@ export class TripController {
     this._container = container;
     this._cards = cards;
     this._cardsList = new TripEventsList();
-    this._day = new Day(cards);
+    this._day = new Day(cards[0]);
     this._sort = new Sort();
     this._subscriptions = [];
     this._onChangeView = this._onChangeView.bind(this);
@@ -19,22 +19,22 @@ export class TripController {
   }
 
   init() {
-    render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
+    render(this._container, this._day.getElement(), Position.BEFOREEND);
     render(tripEvents, this._sort.getElement(), Position.AFTERBEGIN);
     this._cards.forEach((cardMock) => this._renderCards(cardMock));
     this._sort.getElement().addEventListener(`click`, (evt) => this._onSortLinkClick(evt));
   }
 
   _renderBoard(cards) {
-    unrender(this._cardsList.getElement());
-    this._cardsList.removeElement();
-    render(this._container, this._cardsList.getElement(), Position.BEFOREEND);
+    unrender(this._day.getElement());
+    this._day.removeElement();
+    render(this._container, this._day.getElement(), Position.BEFOREEND);
     cards.forEach((cardMock) => this._renderCards(cardMock));
   }
 
   _renderCards(card) {
-    //const CardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card, this._onDataChange, this._onChangeView);
-    const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
+    const CardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card, this._onDataChange, this._onChangeView);
+    //const CardController = new PointController(this._cardsList, card, this._onDataChange, this._onChangeView);
     this._subscriptions.push(CardController.setDefaultView.bind(CardController));
   }
 
@@ -50,7 +50,7 @@ export class TripController {
 
   _onSortLinkClick(evt) {
     if (evt.target.dataset.sortType) {
-      this._cardsList.getElement().innerHTML = ``;
+      this._day.getElement().querySelector(`.trip-events__list`).innerHTML = ``;
 
       switch (evt.target.dataset.sortType) {
         case `time`:
