@@ -1,4 +1,5 @@
 import {AbstractComponent} from './abstract-component';
+import moment from 'moment';
 
 export class Card extends AbstractComponent {
   constructor({type, destination, dateFrom, dateTo, basePrice, offers, id}) {
@@ -23,9 +24,9 @@ export class Card extends AbstractComponent {
 
         <div class="event__schedule">
           <p class="event__time">
-            <time class="event__start-time" datetime="2019-03-18T12:25">${new Date(this._dateFrom).getHours()} : ${new Date(this._dateFrom).getMinutes()}</time>
+            <time class="event__start-time" datetime="2019-03-18T12:25">${moment(this._dateFrom).format(`HH:mm`)}</time>
             —
-            <time class="event__end-time" datetime="2019-03-18T13:35">${new Date(this._dateTo).getHours()} : ${new Date(this._dateTo).getMinutes()}</time>
+            <time class="event__end-time" datetime="2019-03-18T13:35">${moment(this._dateTo).format(`HH:mm`)}</time>
           </p>
           <p class="event__duration">${new Date(this._dateTo).getHours() - new Date(this._dateFrom).getHours()}H ${new Date(this._dateFrom).getMinutes() - new Date(this._dateTo).getMinutes()}M</p>
         </div>

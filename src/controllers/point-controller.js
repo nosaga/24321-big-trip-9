@@ -1,7 +1,6 @@
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
-import {offersSelect} from "../constants";
 
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
@@ -24,14 +23,23 @@ export class PointController {
     const rollupBtnOpen = this._cardView.getElement().querySelector(`.event__rollup-btn`);
     const rollupBtnClose = this._cardEdit.getElement().querySelector(`.event__rollup-btn`);
     const form = this._cardEdit.getElement().querySelector(`form`);
+    const dataInputs = this._cardEdit.getElement().querySelectorAll(`.event__input--time`);
+    const startDate = dataInputs[0];
+    const endDate = dataInputs[1];
 
-    flatpickr(this._cardEdit.getElement().querySelectorAll(`.event__input--time`), {
-      altInput: true,
+
+    flatpickr(startDate, {
       allowInput: true,
       enableTime: true,
-      defaultDate: [this._data.dateFrom, this._data.dateTo],
-      dateFormat: 'd.m.Y H:i',
-      mode: 'range'
+      defaultDate: this._data.dateFrom,
+      dateFormat: 'd/m/Y H:i',
+    });
+
+    flatpickr(endDate, {
+      allowInput: true,
+      enableTime: true,
+      defaultDate: this._data.dateTo,
+      dateFormat: 'd/m/Y H:i',
     });
 
     const onEscKeyDown = (evt) => {
@@ -39,10 +47,6 @@ export class PointController {
         replaceElement(this._container, this._cardView, this._cardEdit, EventOption.removeEvent, onEscKeyDown);
       }
     };
-
-    // const offersAll = this._cardEdit.getElement().querySelectorAll(`.event__offer-checkbox`);
-    // const offers = [];
-    // offersAll.forEach((offer) => offers.push(offer.name));
 
     this._container
       .addEventListener(`click`, (evt) => {
@@ -71,7 +75,6 @@ export class PointController {
     this._container
       .addEventListener(`submit`, (evt) => {
         evt.preventDefault();
-        console.log(offers);
         if (evt.target === form) {
           const {description, photos} = this._cardEdit._destination;
           const formData = new FormData(this._container.querySelector(`.event--edit`));
@@ -96,7 +99,6 @@ export class PointController {
             },
             type: formData.get(`event-type`),
           };
-          console.log(entry);
           this._onDataChange(entry, this._data);
         }
       });
