@@ -1,7 +1,6 @@
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
-import {offersSelect} from "../constants";
 
 export class PointController {
   constructor(container, data, onDataChange, onChangeView) {
