@@ -74,10 +74,8 @@ export class PointController {
             },
             offers: {
               offer: offersSelected.map((offer) => {
-                return {
-                  ...offer,
-                  isChecked: !!formData.get(`event-offer-${offer.value}`)
-                };
+                offer.isChecked = !!formData.get(`event-offer-${offer.value}`);
+                return offer;
               })
             },
             type: formData.get(`event-type`),
