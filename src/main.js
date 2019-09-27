@@ -1,4 +1,4 @@
-import {tripInfo, tripControls, tripEventsList, CARD_COUNT, tripDays} from './constants'
+import {tripInfo, tripControls, tripEventsList, CARD_COUNT, tripDays, tripEvents, tripContainer, menuWrapper, addButton} from './constants'
 import {render, Position} from './utils';
 
 import {card} from './mocks/card';
@@ -12,9 +12,14 @@ import {CreateCardRouteEndDate} from './components/card-route-end-date';
 import {CreateControls} from './components/controls';
 import {CreateFilters} from './components/filters';
 import {TripCost} from './components/trip-cost';
+import {Statistics} from "./components/statistics";
+import {AddNewEvent} from './components/card-new';
 
 import {TripController} from './controllers/trip-controller';
-import {AddNewEvent} from './components/card-new';
+
+
+const menu = new CreateControls();
+const stats = new Statistics();
 
 const renderRoute = (route) => {
   const startPoint = route[0];
@@ -36,9 +41,8 @@ const renderRouteEndDate = (route) => {
   render(tripDates, endDate.getElement(), Position.BEFOREEND);
 };
 
-const renderControls = (controls) => {
-  const controlRoute = new CreateControls(controls);
-  render(tripControls, controlRoute.getElement(), Position.AFTERBEGIN);
+const renderControls = () => {
+  render(tripControls, menu.getElement(), Position.AFTERBEGIN);
 };
 
 const renderFilters = (filters) => {
@@ -56,6 +60,10 @@ const renderCardAdd = () => {
   render(tripEventsList, cardAdd.getElement(), Position.AFTERBEGIN);
 };
 
+const renderStats = () => {
+  render(tripContainer, stats.getElement(), Position.BEFOREEND);
+};
+
 const cardMocks = new Array(CARD_COUNT).fill(``).map(card);
 
 renderRoute(cardMocks);
@@ -63,6 +71,7 @@ renderRouteEndDate(cardMocks);
 renderRouteEndPoint(cardMocks);
 renderControls(controls);
 renderFilters(filters);
+renderStats();
 
 const cardsBoardController = new TripController(tripDays, cardMocks);
 
@@ -79,3 +88,33 @@ renderCardTypes();
 const price = document.querySelectorAll(`.event__price-value`);
 const addPrice = document.querySelectorAll(`.event__offer-price`);
 renderCosts(tripCost(price, addPrice));
+
+
+menu.getElement().addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  const menuButton = menu.getElement().querySelector(`.trip-tabs__btn`).classList.remove(`trip-tabs__btn--active`);
+
+  if(evt.target.tagName === `A`) {
+
+    switch (evt.target.innerHTML) {
+      case `Table`:
+        stats.getElement().classList.add(`visually-hidden`);
+        cardsBoardController.show();
+        break;
+      case `Stats`:
+        cardsBoardController.hide();
+        stats.getElement().classList.remove(`visually-hidden`);
+        break;
+    }
+
+  }
+});
+
+menuWrapper.addEventListener(`click`, (evt) => {
+  if (addButton) {
+    cardsBoardController.createCard();
+  }
+});
+
+
+

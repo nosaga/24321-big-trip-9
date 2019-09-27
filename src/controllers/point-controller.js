@@ -1,13 +1,14 @@
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
+import {Mode} from "../constants";
 
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/light.css';
 
 export class PointController {
-  constructor(container, data, onDataChange, onChangeView) {
+  constructor(container, data, mode, onDataChange, onChangeView) {
     this._container = container;
     this._data = data;
     this._cardView = new Card(data);
@@ -15,10 +16,18 @@ export class PointController {
     this._onDataChange = onDataChange;
     this._onChangeView = onChangeView;
 
-    this.create();
+    this.create(mode);
   }
 
-  create() {
+  create(mode) {
+    let renderPosition = Position.BEFOREEND;
+    let currentView = this._cardView;
+
+    if (mode === Mode.ADDING) {
+      renderPosition = Position.AFTERBEGIN;
+      currentView = this._cardEdit;
+    }
+
     const destinationInput = this._cardEdit.getElement().querySelector(`.event__input--destination`);
     const rollupBtnOpen = this._cardView.getElement().querySelector(`.event__rollup-btn`);
     const rollupBtnClose = this._cardEdit.getElement().querySelector(`.event__rollup-btn`);
@@ -44,7 +53,15 @@ export class PointController {
 
     const onEscKeyDown = (evt) => {
       if (evt.key === `Escape` || evt.key === `Esc`) {
+        if (mode === Mode.DEFAULT) {
+          if (this._container.getElement().contains(this._cardEdit.getElement())) {
+            this._container.getElement().replaceChild(this._cardView.getElement(), this._cardEdit.getElement())
+          }
+        } else if (mode === Mode.ADDING) {
+          this._container.getElement().removeChild(currentView.getElement())
+        }
         replaceElement(this._container, this._cardView, this._cardEdit, EventOption.removeEvent, onEscKeyDown);
+        //document.removeEventListener(`keydown`, onEscKeyDown)
       }
     };
 
@@ -102,7 +119,14 @@ export class PointController {
           this._onDataChange(entry, this._data);
         }
       });
-    render(this._container, this._cardView.getElement(), Position.BEFOREEND);
+
+    this._cardEdit.getElement()
+      .querySelector(`.event__reset-btn`)
+      .addEventListener(`click`, () => {
+
+        this._onDataChange(null, this._data);
+      });
+    render(this._container, currentView.getElement(), renderPosition);
   }
 
   setDefaultView() {
