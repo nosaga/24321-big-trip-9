@@ -1,4 +1,4 @@
-import {tripInfo, tripControls, tripEventsList, CARD_COUNT, tripDays} from './constants'
+import {tripInfo, tripControls, tripEventsList, CARD_COUNT, tripDays} from './constants';
 import {render, Position} from './utils';
 
 import {card} from './mocks/card';

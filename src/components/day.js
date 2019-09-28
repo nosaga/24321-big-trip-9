@@ -16,6 +16,6 @@ export class Day extends AbstractComponent {
       <ul class="trip-events__list">
        
       </ul>
-      </li>`;
+    </li>`;
   }
 }

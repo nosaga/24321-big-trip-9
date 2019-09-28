@@ -12,5 +12,3 @@ export class CreateCardRouteEndPoint extends AbstractComponent {
       `;
   }
 }
-
-

@@ -4,7 +4,7 @@ import {Position, render} from '../utils';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
 import {PointController} from './point-controller';
-import {Day} from "../components/day";
+import {Day} from '../components/day';
 
 export class TripController {
   constructor(container, cards) {
@@ -43,7 +43,6 @@ export class TripController {
 
   _onDataChange(newData, oldData) {
     this._cards[this._cards.findIndex((it) => it === oldData)] = newData;
-
     this._renderBoard(this._cards);
   }
 
