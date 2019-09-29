@@ -112,6 +112,7 @@ menu.getElement().addEventListener(`click`, (evt) => {
 
 menuWrapper.addEventListener(`click`, (evt) => {
   if (addButton) {
+    console.log(cardsBoardController.createCard());
     cardsBoardController.createCard();
   }
 });

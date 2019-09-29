@@ -1,11 +1,16 @@
 import {TripEventsList} from '../components/trip-events-list';
-import {tripEvents, Mode} from '../constants';
+import {photos, tripEvents} from '../constants';
 import {Position, render} from '../utils';
 import {Sort} from '../components/sort';
 import {getDuration, unrender} from '../utils';
 import {PointController} from './point-controller';
 import {Day} from "../components/day";
 import {CardEdit} from "../components/card-edit";
+
+const Mode = {
+  ADDING: `adding`,
+  DEFAULT: `default`
+}
 
 const CARDS_IN_COLUMN = 3;
 const PointControllerMode = Mode;
@@ -51,18 +56,20 @@ export class TripController {
       destination: {
         name: ``,
         description: ``,
-        photos: ``,
+        photos: [
+          {
+            src: ``,
+          }
+        ]
       },
       offers: {
-        offer: {}
+        offer: []
       },
       type: ``,
     };
 
     this._creatingCard = new PointController(this._day, defaultCard, PointControllerMode.ADDING, this._onChangeView,
       this._onDataChange);
-    //const cardController = new PointController(this._day, defaultCard, PointControllerMode.ADDING, this._onChangeView,
-    //  this._onDataChange);
   }
 
   _renderBoard(cards) {
@@ -73,8 +80,9 @@ export class TripController {
   }
 
   _renderCards(card) {
-    const CardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card, PointControllerMode, this._onDataChange, this._onChangeView);
-    this._subscriptions.push(CardController.setDefaultView.bind(CardController));
+    const cardController = new PointController(this._day.getElement().querySelector(`.trip-events__list`), card,
+      PointControllerMode.DEFAULT, this._onDataChange, this._onChangeView);
+    this._subscriptions.push(cardController.setDefaultView.bind(cardController));
   }
 
   _onChangeView() {

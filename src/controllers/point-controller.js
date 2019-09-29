@@ -1,11 +1,15 @@
 import {Card} from '../components/cards';
 import {CardEdit} from '../components/card-edit';
 import {EventOption, Position, render, replaceElement} from '../utils';
-import {Mode} from "../constants";
 
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import 'flatpickr/dist/themes/light.css';
+
+const Mode = {
+  ADDING: `adding`,
+  DEFAULT: `default`
+};
 
 export class PointController {
   constructor(container, data, mode, onDataChange, onChangeView) {

@@ -13,10 +13,6 @@ const cities = [`Helsinki`, `Stockholm`, `Amsterdam`, `Airport`];
 const monthNames = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
 const photos = new Array(5).fill(``);
 
-const Mode = {
-  ADDING: `adding`,
-  DEFAULT: `default`
-}
 export {
   menuWrapper,
   addButton,
@@ -29,6 +25,5 @@ export {
   CARD_COUNT,
   cities,
   monthNames,
-  photos,
-  Mode
+  photos
 };
